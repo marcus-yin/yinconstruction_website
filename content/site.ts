@@ -605,7 +605,8 @@ export const about = {
     heading: "Our commitment to safety",
     paragraphs: [
       "A safe jobsite is a productive one. Our crews follow OSHA-aligned practices for ladder and scaffold use, material handling, and silica dust control during sanding and cutting.",
-      "Team training: {{TODO: OSHA 10/30 cards held by team members}}. We carry general liability and workers' compensation coverage — details on our Certifications page.",
+      // When the Certifications page returns, append: "— details on our Certifications page."
+      "Team training: {{TODO: OSHA 10/30 cards held by team members}}. We carry general liability and workers' compensation coverage.",
     ],
   },
   localRoots:
@@ -700,7 +701,8 @@ export const faqs: Faq[] = [
   {
     question: "Are you licensed and insured?",
     answer:
-      "Yes — {{TODO: license/registration summary}}. We carry general liability and workers' compensation coverage, and a certificate of insurance is available on request. Details are on our Certifications page.",
+      // When the Certifications page returns, append: "Details are on our Certifications page."
+      "Yes — {{TODO: license/registration summary}}. We carry general liability and workers' compensation coverage, and a certificate of insurance is available on request.",
   },
   {
     question: "Do you do both residential and commercial work?",

@@ -15,6 +15,7 @@ import {
   company,
   seo,
   hero,
+  navLinks,
   pathways,
   trustStrip,
   stats,
@@ -41,6 +42,10 @@ const VALUE_ICONS = {
 
 export default function HomePage() {
   const featured = visibleProjects().slice(0, 3);
+  // Featured Projects section follows the Projects nav link: hidden while the
+  // page is hidden from navigation (remove `hidden: true` in content/site.ts
+  // to bring both back).
+  const showProjectsSection = !navLinks.find((link) => link.href === "/projects/")?.hidden;
 
   return (
     <>
@@ -294,6 +299,7 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------- Featured projects */}
+      {showProjectsSection && (
       <section
         aria-labelledby="projects-heading"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
@@ -333,6 +339,7 @@ export default function HomePage() {
           </div>
         )}
       </section>
+      )}
 
       {/* ----------------------------------------------------- Testimonials */}
       <Testimonials />

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Award, MessagesSquare, HardHat, MapPin } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import QuoteCTA from "@/components/QuoteCTA";
@@ -104,12 +103,11 @@ export default function AboutPage() {
                   </p>
                 ))}
               </div>
+              {/* Certifications page is hidden for now; restore this link when
+                  it returns to navigation:
+                  "Insurance and training details are on our Certifications page." */}
               <p className="mt-4 text-sm text-steel-500">
-                Insurance and training details are on our{" "}
-                <Link href="/certifications/" className="font-semibold text-navy-700 underline">
-                  Certifications page
-                </Link>
-                .
+                A certificate of insurance is available on request.
               </p>
             </div>
           </div>
