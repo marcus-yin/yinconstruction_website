@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
+import { Phone, Mail, Clock, MapPin } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import { siteConfig } from "@/lib/content";
+import ContactForm from "@/components/ContactForm";
+import Accordion from "@/components/ui/Accordion";
+import { company, faqs } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact & Quote Request",
-  description: `Request a free quote from ${siteConfig.name}. ${siteConfig.serviceArea}. Call ${siteConfig.phone} or send us your project details.`,
+  title: "Contact & Free Quote",
+  description: `Request a free quote from ${company.name}. ${company.serviceAreaStatement}. Free written estimates for residential and commercial work.`,
+  alternates: { canonical: "/contact/" },
 };
 
 export default function ContactPage() {
@@ -21,13 +24,13 @@ export default function ContactPage() {
           <section aria-labelledby="form-heading" className="lg:col-span-2">
             <h2
               id="form-heading"
-              className="text-2xl font-bold tracking-tight text-slate-900"
+              className="font-heading text-2xl font-bold tracking-tight text-navy-900"
             >
-              Request a Quote
+              Request a Free Quote
             </h2>
-            <p className="mt-2 text-slate-600">
-              Fill out the form below and we&apos;ll follow up to discuss your
-              project.
+            <p className="mt-2 text-steel-600">
+              Tell us about the project and we&apos;ll follow up to schedule a
+              free site visit and written estimate.
             </p>
             <div className="mt-8">
               <ContactForm />
@@ -37,61 +40,86 @@ export default function ContactPage() {
           <aside aria-labelledby="info-heading">
             <h2
               id="info-heading"
-              className="text-2xl font-bold tracking-tight text-slate-900"
+              className="font-heading text-2xl font-bold tracking-tight text-navy-900"
             >
               Get in Touch
             </h2>
+
+            {/* Click-to-call, prominent on mobile */}
+            <a
+              href={`tel:${company.phone.e164}`}
+              className="mt-6 flex items-center justify-center gap-2 rounded-md bg-navy-700 px-5 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-navy-800 lg:hidden"
+            >
+              <Phone aria-hidden="true" className="h-5 w-5" />
+              Call {company.phone.display}
+            </a>
+
             <address className="mt-6 space-y-6 not-italic">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  Phone
-                </p>
-                <a
-                  href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}
-                  className="mt-1 block text-lg font-medium text-slate-900 hover:text-amber-600"
-                >
-                  {siteConfig.phone}
-                </a>
+              <div className="flex gap-3">
+                <Phone aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-navy-700" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-steel-500">
+                    Phone
+                  </p>
+                  <a
+                    href={`tel:${company.phone.e164}`}
+                    className="mt-0.5 block break-words font-medium text-navy-900 hover:text-navy-700"
+                  >
+                    {company.phone.display}
+                  </a>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  Email
-                </p>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="mt-1 block text-lg font-medium text-slate-900 hover:text-amber-600"
-                >
-                  {siteConfig.email}
-                </a>
+
+              <div className="flex gap-3">
+                <Mail aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-navy-700" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-steel-500">
+                    Email
+                  </p>
+                  <a
+                    href={`mailto:${company.email}`}
+                    className="mt-0.5 block break-words font-medium text-navy-900 hover:text-navy-700"
+                  >
+                    {company.email}
+                  </a>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  Office
-                </p>
-                <p className="mt-1 text-lg text-slate-900">
-                  {siteConfig.address.street}
-                  <br />
-                  {siteConfig.address.city}, {siteConfig.address.state}{" "}
-                  {siteConfig.address.zip}
-                </p>
+
+              <div className="flex gap-3">
+                <Clock aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-navy-700" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-steel-500">
+                    Hours
+                  </p>
+                  <p className="mt-0.5 break-words font-medium text-navy-900">{company.hours}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  Hours
-                </p>
-                <p className="mt-1 text-lg text-slate-900">
-                  {siteConfig.hours}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  Service Area
-                </p>
-                <p className="mt-1 text-slate-700">{siteConfig.serviceArea}</p>
+
+              <div className="flex gap-3">
+                <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-navy-700" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-steel-500">
+                    Service Area
+                  </p>
+                  <p className="mt-0.5 text-steel-700">{company.serviceAreaStatement}</p>
+                </div>
               </div>
             </address>
           </aside>
         </div>
+
+        {/* FAQ */}
+        <section aria-labelledby="faq-heading" className="mt-20">
+          <h2
+            id="faq-heading"
+            className="font-heading text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl"
+          >
+            Frequently Asked Questions
+          </h2>
+          <div className="mt-8 max-w-3xl">
+            <Accordion items={faqs} idPrefix="faq" />
+          </div>
+        </section>
       </div>
     </>
   );
