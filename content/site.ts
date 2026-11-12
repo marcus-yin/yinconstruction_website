@@ -225,6 +225,45 @@ export const services: Service[] = [
   },
 ];
 
+/**
+ * Drywall finish levels (industry-standard GA-214 levels), shown as a
+ * diagram in the Taping & Finishing section of the Services page.
+ */
+export type FinishLevelInfo = { level: number; name: string; blurb: string };
+
+export const finishLevels: FinishLevelInfo[] = [
+  {
+    level: 0,
+    name: "No finish",
+    blurb: "Board hung only — temporary construction or undecided surfaces.",
+  },
+  {
+    level: 1,
+    name: "Fire tape",
+    blurb: "Tape set in compound. Concealed areas like plenums and attics.",
+  },
+  {
+    level: 2,
+    name: "One coat",
+    blurb: "Tape plus one coat over joints and fasteners. Garages, storage.",
+  },
+  {
+    level: 3,
+    name: "Two coats",
+    blurb: "For heavy textures or commercial walls getting thick wallcovering.",
+  },
+  {
+    level: 4,
+    name: "Three coats",
+    blurb: "The standard for living spaces — ready for flat or low-sheen paint.",
+  },
+  {
+    level: 5,
+    name: "Skim coat",
+    blurb: "Full skim for gloss paint and critical natural or raking light.",
+  },
+];
+
 /* ------------------------------------------------------------ trust & stats */
 
 export type TrustItem = { label: string; note?: string };
