@@ -349,7 +349,9 @@ export const pathways: Pathway[] = [
 export type TrustItem = { label: string; note?: string };
 
 export const trustStrip: TrustItem[] = [
-  { label: "Licensed & Insured", note: "{{TODO: license/registration details}}" },
+  // When license/registration details are available, add them back as:
+  // note: "NYS registration #..." (or similar)
+  { label: "Licensed & Insured" },
   { label: "Free Estimates" },
   { label: "Serving Central NY" },
   { label: "Residential & Commercial" },
