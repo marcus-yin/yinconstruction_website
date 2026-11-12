@@ -1,6 +1,6 @@
 /**
  * Angled SVG divider between section bands. Takes the color of the section
- * it points INTO via `currentColor` — wrap in a text-{color} container or
+ * it points INTO via `currentColor` - wrap in a text-{color} container or
  * pass a text color class. Decorative only.
  */
 type SectionDividerProps = {

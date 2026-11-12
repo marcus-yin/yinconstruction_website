@@ -6,7 +6,7 @@ import type { Stat } from "@/content/site";
 /**
  * Animated count-up number. Respects prefers-reduced-motion (renders the
  * final value immediately). While a stat's value is null, its {{TODO}}
- * token is rendered instead — fill in real numbers in content/site.ts to
+ * token is rendered instead - fill in real numbers in content/site.ts to
  * activate the animation.
  */
 export default function StatCounter({ stat }: { stat: Stat }) {

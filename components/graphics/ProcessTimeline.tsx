@@ -2,7 +2,7 @@ import type { ProcessStep } from "@/content/site";
 
 /**
  * Numbered process timeline: vertical on mobile, horizontal on desktop.
- * Pure CSS/HTML — no images.
+ * Pure CSS/HTML - no images.
  */
 export default function ProcessTimeline({ steps }: { steps: ProcessStep[] }) {
   return (

@@ -7,7 +7,7 @@ import Accordion from "@/components/ui/Accordion";
 import { company, faqs } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact — Request an Estimate or Subcontractor Bid",
+  title: "Contact: Request an Estimate or Subcontractor Bid",
   description: `Request a free estimate or subcontractor bid from ${company.name}. ${company.serviceAreaStatement}. Free written estimates for residential and commercial work.`,
   alternates: { canonical: "/contact/" },
 };
@@ -17,7 +17,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         title="Contact Us"
-        description="Request a free quote or ask a question — we'll get back to you promptly."
+        description="Request a free quote or ask a question. We'll get back to you promptly."
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

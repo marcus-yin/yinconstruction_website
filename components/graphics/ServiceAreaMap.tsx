@@ -3,7 +3,7 @@ import { serviceAreas } from "@/content/site";
 /**
  * Stylized SVG map of Central New York, data-driven from content/site.ts.
  * Towns are plotted on a simplified regional shape with a dashed service
- * radius ring around the hub (Syracuse). Not to scale — illustrative only.
+ * radius ring around the hub (Syracuse). Not to scale - illustrative only.
  */
 export default function ServiceAreaMap({ className = "" }: { className?: string }) {
   const hub = serviceAreas.find((a) => a.hub);

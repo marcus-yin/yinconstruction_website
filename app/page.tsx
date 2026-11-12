@@ -130,7 +130,7 @@ export default function HomePage() {
               Our Services
             </h2>
             <p className="mt-3 max-w-2xl text-lg text-steel-600">
-              From a single patch to a full commercial fit-out — interior work,
+              From a single patch to a full commercial fit-out: interior work,
               done right the first time.
             </p>
           </div>
@@ -224,7 +224,7 @@ export default function HomePage() {
             How We Work
           </h2>
           <p className="mt-3 max-w-2xl text-lg text-steel-600">
-            Six steps, no surprises — the same process on every job.
+            Six steps, no surprises: the same process on every job.
           </p>
           <div className="mt-12">
             <ProcessTimeline steps={processSteps} />
@@ -279,7 +279,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-steel-700">
               Based in the Syracuse area, we take on projects across Central New
-              York — within roughly {"{{TODO: service radius in miles}}"} miles
+              York, within roughly {"{{TODO: service radius in miles}}"} miles
               of Syracuse.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -291,7 +291,7 @@ export default function HomePage() {
               ))}
             </ul>
             <p className="mt-4 text-sm text-steel-500">
-              Outside these areas? <Link href="/contact/" className="font-semibold text-navy-700 underline">Ask us</Link> — we regularly travel for the right project.
+              Outside these areas? <Link href="/contact/" className="font-semibold text-navy-700 underline">Ask us</Link>. We regularly travel for the right project.
             </p>
           </div>
           <ServiceAreaMap className="mx-auto w-full max-w-md" />

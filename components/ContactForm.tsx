@@ -124,7 +124,7 @@ export default function ContactForm() {
       await navigator.clipboard.writeText(message);
       setCopied(true);
     } catch {
-      /* clipboard unavailable — the message is selectable below */
+      /* clipboard unavailable - the message is selectable below */
     }
   }
 
@@ -134,7 +134,7 @@ export default function ContactForm() {
         {result.kind === "mailto-opened" ? (
           <>
             <h3 className="font-heading text-xl font-bold text-navy-900">
-              Almost done — hit send in your email app
+              Almost done: hit send in your email app
             </h3>
             <p className="mt-2 text-steel-700">
               Your email app should have opened with your request pre-filled.
@@ -163,8 +163,8 @@ export default function ContactForm() {
               Online submission isn&apos;t connected yet
             </h3>
             <p className="mt-2 text-steel-700">
-              This form doesn&apos;t deliver messages yet — we didn&apos;t want
-              to pretend otherwise. Your request is composed below: copy it and
+              This form doesn&apos;t deliver messages yet, and we didn&apos;t
+              want to pretend otherwise. Your request is composed below: copy it and
               reach us by phone or email, and we&apos;ll take it from there.
             </p>
           </>
@@ -212,7 +212,7 @@ export default function ContactForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
-      {/* Honeypot — hidden from real users and assistive tech */}
+      {/* Honeypot - hidden from real users and assistive tech */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor="website">Leave this field empty</label>
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
@@ -396,7 +396,7 @@ export default function ContactForm() {
           className={`${inputClass} ${errors.description ? errorClass : ""}`}
         />
         <p id="description-hint" className="mt-1.5 text-sm text-steel-500">
-          What are we building or fixing? Rooms, ceilings, existing conditions —
+          What are we building or fixing? Rooms, ceilings, existing conditions:
           anything helps. Have photos? Mention them here and we&apos;ll request
           them by email (direct photo upload is coming).
         </p>

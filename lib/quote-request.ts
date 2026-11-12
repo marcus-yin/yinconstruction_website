@@ -7,7 +7,7 @@ import { company } from "@/content/site";
  * Until a backend exists, the form composes the request into a structured
  * message the visitor can send themselves:
  *   - if a real business email is configured in content/site.ts, we open
- *     the visitor's email app pre-filled (mailto:) — a genuine delivery path;
+ *     the visitor's email app pre-filled (mailto:) - a genuine delivery path;
  *   - otherwise we show the composed message with copy instructions and
  *     the business phone/email placeholders, and say plainly that online
  *     submission isn't connected yet.

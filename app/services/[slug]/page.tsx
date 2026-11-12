@@ -31,7 +31,7 @@ export async function generateMetadata({
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
   return {
-    title: `${service.title} — Syracuse & Central New York`,
+    title: `${service.title} | Syracuse & Central New York`,
     description: service.short,
     alternates: { canonical: `/services/${service.slug}/` },
     openGraph: {
@@ -53,7 +53,7 @@ export default async function ServiceDetailPage({
   const otherServices = services.filter((s) => s.slug !== service.slug);
   const areaList = serviceAreas.map((a) => a.name).join(", ");
 
-  // Service structured data — only facts already stated on the page.
+  // Service structured data - only facts already stated on the page.
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -180,7 +180,7 @@ export default async function ServiceDetailPage({
           </div>
         </div>
 
-        {/* Related services — internal linking */}
+        {/* Related services - internal linking */}
         <section aria-labelledby="related-heading" className="mt-16 border-t border-steel-200 pt-10">
           <h2
             id="related-heading"

@@ -1,6 +1,6 @@
 /**
  * Badge-style SVG graphics for the Certifications page. No third-party
- * logos — generic rosette badges with a line icon. Decorative.
+ * logos - generic rosette badges with a line icon. Decorative.
  */
 export type CertBadgeType = "document" | "shield" | "hardhat" | "ribbon";
 

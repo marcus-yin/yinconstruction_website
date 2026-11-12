@@ -3,7 +3,7 @@ import { company, serviceAreas, services } from "@/content/site";
 /**
  * LocalBusiness / GeneralContractor structured data, populated from
  * content/site.ts. {{TODO}} tokens appear here until real facts are
- * filled in — search engines will simply ignore the invalid values,
+ * filled in - search engines will simply ignore the invalid values,
  * but replace them before launch (see TODO-CONTENT.md).
  */
 export default function JsonLd() {

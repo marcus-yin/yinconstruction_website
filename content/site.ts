@@ -2,7 +2,7 @@
  * ============================================================================
  * SINGLE SOURCE OF TRUTH for all site copy and business facts.
  *
- * Components must read from this file — no hard-coded copy in components.
+ * Components must read from this file - no hard-coded copy in components.
  *
  * Any value wrapped in {{TODO: ...}} is a placeholder token for a real fact
  * that must be supplied and verified by the business owner. Every token is
@@ -15,7 +15,7 @@
 export const company = {
   name: "YIN Construction",
   tagline: "Drywall & interior construction for Central New York",
-  /** Production domain — drives canonical URLs, sitemap.xml, and Open Graph. */
+  /** Production domain - drives canonical URLs, sitemap.xml, and Open Graph. */
   url: "https://yinconstruction.com",
   phone: {
     /** Shown to visitors, e.g. "(315) 123-4567" */
@@ -105,10 +105,10 @@ export const services: Service[] = [
     title: "Drywall Installation",
     icon: "drywall-sheet",
     short:
-      "Precise board hanging for new builds, additions, and remodels — square, plumb, and ready for a flawless finish.",
+      "Precise board hanging for new builds, additions, and remodels: square, plumb, and ready for a flawless finish.",
     paragraphs: [
       "Good drywall starts long before the first sheet goes up. We check framing for straightness, plan board layout to minimize butt joints, and stage material so your space stays workable. The result is a substrate that finishes faster and looks better for the life of the building.",
-      "We hang standard, moisture-resistant, mold-resistant, and fire-rated board, matching the right product to each room — bathrooms, garages, party walls, and mechanical spaces all have different requirements. Ceilings, curves, and high walls are all in a day's work.",
+      "We hang standard, moisture-resistant, mold-resistant, and fire-rated board, matching the right product to each room. Bathrooms, garages, party walls, and mechanical spaces all have different requirements. Ceilings, curves, and high walls are all in a day's work.",
       "Whether it's a single room or a whole house, we keep the jobsite clean, protect finished surfaces, and coordinate closely with your other trades so nothing holds up the schedule.",
     ],
     included: [
@@ -129,16 +129,16 @@ export const services: Service[] = [
     title: "Taping & Finishing (Levels 0–5)",
     icon: "taping-knife",
     short:
-      "Smooth, consistent finishing to the industry-standard levels — from fire-tape to Level 5 skim coats for critical light.",
+      "Smooth, consistent finishing to the industry-standard levels, from fire-tape to Level 5 skim coats for critical light.",
     paragraphs: [
-      "Finishing is where drywall work succeeds or fails. We tape and finish to the industry-standard levels (0 through 5), so you get exactly the surface your space needs — no more, no less — and you know precisely what you're paying for.",
+      "Finishing is where drywall work succeeds or fails. We tape and finish to the industry-standard levels (0 through 5), so you get exactly the surface your space needs, no more and no less, and you know precisely what you're paying for.",
       "Most living spaces call for a Level 4 finish, ready for flat or low-sheen paint. For walls washed in natural light, hallways with wall grazing fixtures, or anywhere gloss paint is planned, we recommend a Level 5 skim coat that eliminates photographing of joints and fasteners.",
       "We feather joints wide, sand with dust control, and check our work under raking light before we call it done.",
     ],
     included: [
       "Taping, bedding, and multiple finish coats",
       "Level 0–5 finishes matched to the room's lighting and paint",
-      "Corner bead — square, bullnose, and specialty profiles",
+      "Corner bead: square, bullnose, and specialty profiles",
       "Dust-controlled sanding",
       "Raking-light quality check before handoff",
     ],
@@ -153,11 +153,11 @@ export const services: Service[] = [
     title: "Drywall Repair & Patching",
     icon: "patch",
     short:
-      "Seamless repairs for holes, cracks, and water damage — with texture matching so the patch disappears.",
+      "Seamless repairs for holes, cracks, and water damage, with texture matching so the patch disappears.",
     paragraphs: [
-      "From doorknob holes to ceiling water damage, we make drywall repairs that blend in completely. A proper repair isn't just filling a hole — it's cutting back to sound material, backing the patch correctly, and building the finish out wide enough that the wall reads as one surface.",
+      "From doorknob holes to ceiling water damage, we make drywall repairs that blend in completely. A proper repair isn't just filling a hole. It's cutting back to sound material, backing the patch correctly, and building the finish out wide enough that the wall reads as one surface.",
       "Water-damaged drywall needs special attention: we check for hidden moisture and replace compromised board rather than coating over a problem that will come back.",
-      "We match existing textures — knockdown, orange peel, or smooth — and leave the surface paint-ready, so your painter (or our painting service) can make it disappear.",
+      "We match existing textures (knockdown, orange peel, or smooth) and leave the surface paint-ready, so your painter (or our painting service) can make it disappear.",
     ],
     included: [
       "Hole, crack, and corner repairs",
@@ -176,11 +176,11 @@ export const services: Service[] = [
     title: "Commercial Interiors & Tenant Improvements",
     icon: "commercial",
     short:
-      "Metal stud framing, drywall, and acoustical ceilings for offices, retail, and medical fit-outs — built to schedule.",
+      "Metal stud framing, drywall, and acoustical ceilings for offices, retail, and medical fit-outs, built to schedule.",
     paragraphs: [
       "Commercial interiors run on schedules, and we build to them. We provide metal stud framing, drywall, and acoustical ceiling tile (ACT) systems for tenant improvements, office fit-outs, retail spaces, and light medical work across Central New York.",
       "Our crews are comfortable working from architectural drawings, coordinating with electrical, mechanical, and sprinkler trades, and phasing work in occupied buildings with minimal disruption to your tenants or staff.",
-      "From layout to final ceiling tile, you get one accountable contractor for the interior shell — framing that's straight, assemblies that meet rating requirements, and ceilings that line up.",
+      "From layout to final ceiling tile, you get one accountable contractor for the interior shell: framing that's straight, assemblies that meet rating requirements, and ceilings that line up.",
     ],
     included: [
       "Metal stud framing and layout from drawings",
@@ -200,10 +200,10 @@ export const services: Service[] = [
     title: "Residential Renovations & Basement Finishing",
     icon: "renovation",
     short:
-      "Turn unfinished space into living space — framing, drywall, ceilings, and finish work under one roof.",
+      "Turn unfinished space into living space: framing, drywall, ceilings, and finish work under one roof.",
     paragraphs: [
-      "A basement is the least expensive square footage you'll ever add to your home — it's already built; it just needs finishing. We handle the full interior package: framing, insulation coordination, drywall, ceilings, and final paint.",
-      "Beyond basements, we take on interior renovations where walls move, ceilings change, or spaces open up — bedroom conversions, home offices, and layout changes that modernize older Central New York homes.",
+      "A basement is the least expensive square footage you'll ever add to your home. It's already built; it just needs finishing. We handle the full interior package: framing, insulation coordination, drywall, ceilings, and final paint.",
+      "Beyond basements, we take on interior renovations where walls move, ceilings change, or spaces open up: bedroom conversions, home offices, and layout changes that modernize older Central New York homes.",
       "We give you a clear written scope, protect the rest of your home with dust barriers, and clean up daily, because you still have to live there while we work.",
     ],
     included: [
@@ -224,11 +224,11 @@ export const services: Service[] = [
     title: "Painting & Final Finish",
     icon: "paint-roller",
     short:
-      "Prime and paint by the same crew that finished the walls — one contractor, one standard, zero finger-pointing.",
+      "Prime and paint by the same crew that finished the walls. One contractor, one standard, zero finger-pointing.",
     paragraphs: [
-      "The best time to paint a wall is right after the people who finished it sign off on it. We prime and paint the surfaces we install, so there's one standard of quality from bare stud to final coat — and no gap between trades where defects hide.",
+      "The best time to paint a wall is right after the people who finished it sign off on it. We prime and paint the surfaces we install, so there's one standard of quality from bare stud to final coat, and no gap between trades where defects hide.",
       "We spec the right primer for fresh drywall, back-roll for uniform texture, and apply finish coats suited to each room: scrubbable finishes for hallways and kids' rooms, moisture-resistant paint in baths, and flat ceilings that hide everything.",
-      "Walkthrough happens under the same raking light we use to check our finishing — if we can see it, we fix it before you ever do.",
+      "Walkthrough happens under the same raking light we use to check our finishing. If we can see it, we fix it before you ever do.",
     ],
     included: [
       "New-drywall priming and sealing",
@@ -255,7 +255,7 @@ export const finishLevels: FinishLevelInfo[] = [
   {
     level: 0,
     name: "No finish",
-    blurb: "Board hung only — temporary construction or undecided surfaces.",
+    blurb: "Board hung only, for temporary construction or undecided surfaces.",
   },
   {
     level: 1,
@@ -275,7 +275,7 @@ export const finishLevels: FinishLevelInfo[] = [
   {
     level: 4,
     name: "Three coats",
-    blurb: "The standard for living spaces — ready for flat or low-sheen paint.",
+    blurb: "The standard for living spaces, ready for flat or low-sheen paint.",
   },
   {
     level: 5,
@@ -292,9 +292,9 @@ export type Pathway = {
   label: string;
   title: string;
   intro: string;
-  /** Slugs into `services` — only services actually offered to this audience */
+  /** Slugs into `services` - only services actually offered to this audience */
   serviceSlugs: string[];
-  /** What this audience can expect — verifiable process claims only */
+  /** What this audience can expect - verifiable process claims only */
   expectations: string[];
   cta: { label: string; href: string };
 };
@@ -305,7 +305,7 @@ export const pathways: Pathway[] = [
     label: "Homeowners",
     title: "Drywall & Interior Work for Your Home",
     intro:
-      "From a single wall repair to a fully finished basement, we handle residential drywall and interior projects across the Syracuse region — with free written estimates, dust control, and daily cleanup, because you still live there while we work.",
+      "From a single wall repair to a fully finished basement, we handle residential drywall and interior projects across the Syracuse region, with free written estimates, dust control, and daily cleanup, because you still live there while we work.",
     serviceSlugs: [
       "drywall-installation",
       "repair-patching",
@@ -325,7 +325,7 @@ export const pathways: Pathway[] = [
     label: "General Contractors & Commercial",
     title: "A Drywall Sub That Protects Your Schedule",
     intro:
-      "We provide drywall installation, taping and finishing, metal stud framing, and acoustical ceilings for general contractors, property managers, and commercial clients in Central New York — bid from your drawings, built to your schedule.",
+      "We provide drywall installation, taping and finishing, metal stud framing, and acoustical ceilings for general contractors, property managers, and commercial clients in Central New York. Bid from your drawings, built to your schedule.",
     serviceSlugs: [
       "drywall-installation",
       "taping-finishing",
@@ -428,7 +428,7 @@ export const values: Value[] = [
     title: "Quality Craftsmanship",
     icon: "quality",
     description:
-      "We check every finish under raking light before we consider it done — because that's how your eye will see it.",
+      "We check every finish under raking light before we consider it done, because that's how your eye will see it.",
   },
   {
     title: "Clear Communication",
@@ -461,7 +461,7 @@ export const processSteps: ProcessStep[] = [
   },
   {
     title: "Detailed written estimate",
-    description: "A clear scope with line items — no vague allowances or surprises.",
+    description: "A clear scope with line items. No vague allowances or surprises.",
   },
   {
     title: "Scheduling & material planning",
@@ -477,7 +477,7 @@ export const processSteps: ProcessStep[] = [
   },
   {
     title: "Final sign-off & warranty",
-    description: "You sign off when it's right. Work is backed by our warranty — {{TODO: warranty terms}}.",
+    description: "You sign off when it's right. Work is backed by our warranty: {{TODO: warranty terms}}.",
   },
 ];
 
@@ -495,7 +495,7 @@ export type Project = {
   duration: string;
   /** Year the project was completed */
   completionYear?: string;
-  /** Optional photo slot — add a file under public/images/projects/ and reference it here. */
+  /** Optional photo slot - add a file under public/images/projects/ and reference it here. */
   photo?: { src: string; alt: string };
   /** Sample entries are examples, not real work. See flags.showSampleProjectsInProduction. */
   sample: boolean;
@@ -504,7 +504,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "sample-basement-finish",
-    title: "SAMPLE — Basement Finishing",
+    title: "SAMPLE: Basement Finishing",
     category: "Residential",
     location: "Syracuse, NY",
     scope: [
@@ -519,7 +519,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sample-office-fitout",
-    title: "SAMPLE — Office Tenant Improvement",
+    title: "SAMPLE: Office Tenant Improvement",
     category: "Commercial",
     location: "Utica, NY",
     scope: [
@@ -534,7 +534,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sample-whole-home-refinish",
-    title: "SAMPLE — Whole-Home Wall Refinish",
+    title: "SAMPLE: Whole-Home Wall Refinish",
     category: "Renovation",
     location: "Auburn, NY",
     scope: [
@@ -551,11 +551,11 @@ export const projects: Project[] = [
 
 /**
  * Shown on the Projects page (and the homepage) while no verified projects
- * are published — an honest capabilities statement instead of an empty
+ * are published - an honest capabilities statement instead of an empty
  * gallery or invented work.
  */
 export const projectsCapabilities = {
-  heading: "Our portfolio is being built — our capabilities aren't",
+  heading: "Our portfolio is being built. Our capabilities aren't.",
   paragraphs: [
     "YIN Construction is actively taking on drywall and interior construction projects across Central New York. As completed projects are documented (with client permission), they'll be published here.",
     "In the meantime, here's the kind of work we're equipped to take on today:",
@@ -587,7 +587,7 @@ export type Testimonial = {
 };
 
 /**
- * Intentionally empty — no fake reviews. The Testimonials section renders
+ * Intentionally empty - no fake reviews. The Testimonials section renders
  * only when real, permissioned quotes are added here.
  */
 export const testimonials: Testimonial[] = [];
@@ -602,21 +602,21 @@ export const about = {
     "Today we focus on what we do best: drywall installation and finishing, commercial interiors, and the renovations that turn unused space into favorite rooms. We keep our crews small and accountable, and the person who estimates your project is the one who answers for it.",
   ],
   mission:
-    "Deliver straight walls, flawless finishes, and honest schedules — and leave every jobsite cleaner than we found it.",
+    "Deliver straight walls, flawless finishes, and honest schedules, and leave every jobsite cleaner than we found it.",
   safety: {
     heading: "Our commitment to safety",
     paragraphs: [
       "A safe jobsite is a productive one. Our crews follow OSHA-aligned practices for ladder and scaffold use, material handling, and silica dust control during sanding and cutting.",
-      // When the Certifications page returns, append: "— details on our Certifications page."
+      // When the Certifications page returns, append: "- details on our Certifications page."
       "Team training: {{TODO: OSHA 10/30 cards held by team members}}. We carry general liability and workers' compensation coverage.",
     ],
   },
   localRoots:
-    "We're based in Central New York and build here year-round — in the same neighborhoods, villages, and commercial corridors where our families live. When you call us, you're calling a local business that plans to be here for the long haul.",
+    "We're based in Central New York and build here year-round, in the same neighborhoods, villages, and commercial corridors where our families live. When you call us, you're calling a local business that plans to be here for the long haul.",
 };
 
 export type TeamMember = {
-  /** {{TODO}} tokens until real team info is supplied — no invented names. */
+  /** {{TODO}} tokens until real team info is supplied - no invented names. */
   name: string;
   role: string;
   /** Short string rendered in the SVG monogram avatar */
@@ -654,7 +654,7 @@ export const certifications: Certification[] = [
     title: "Contractor Licensing & Registration",
     badge: "document",
     description:
-      "{{TODO: municipal/county contractor licenses or registrations held — New York State licenses contractors at the local level, so list each city/county registration and number}}",
+      "{{TODO: municipal/county contractor licenses or registrations held; New York State licenses contractors at the local level, so list each city/county registration and number}}",
   },
   {
     title: "General Liability Insurance",
@@ -678,7 +678,7 @@ export const certifications: Certification[] = [
     title: "NYS Business Certifications",
     badge: "ribbon",
     description:
-      "{{TODO: MWBE/DBE or other New York State certifications, if applicable — remove this card if none}}",
+      "{{TODO: MWBE/DBE or other New York State certifications, if applicable; remove this card if none}}",
   },
 ];
 
@@ -693,7 +693,7 @@ export const faqs: Faq[] = [
   {
     question: "How much does an estimate cost?",
     answer:
-      "Nothing. We provide free written estimates, usually after a short site visit so we can measure and see the existing conditions. You'll get a clear scope with line items — not a single vague number.",
+      "Nothing. We provide free written estimates, usually after a short site visit so we can measure and see the existing conditions. You'll get a clear scope with line items, not a single vague number.",
   },
   {
     question: "How long will my project take?",
@@ -704,12 +704,12 @@ export const faqs: Faq[] = [
     question: "Are you licensed and insured?",
     answer:
       // When the Certifications page returns, append: "Details are on our Certifications page."
-      "Yes — {{TODO: license/registration summary}}. We carry general liability and workers' compensation coverage, and a certificate of insurance is available on request.",
+      "Yes. {{TODO: license/registration summary}}. We carry general liability and workers' compensation coverage, and a certificate of insurance is available on request.",
   },
   {
     question: "Do you do both residential and commercial work?",
     answer:
-      "Yes. We work in homes — repairs, renovations, and basement finishing — and in commercial spaces, where we provide metal stud framing, drywall, and acoustical ceilings for tenant improvements and fit-outs.",
+      "Yes. We work in homes (repairs, renovations, and basement finishing) and in commercial spaces, where we provide metal stud framing, drywall, and acoustical ceilings for tenant improvements and fit-outs.",
   },
   {
     question: "Do you offer a warranty?",
@@ -719,7 +719,7 @@ export const faqs: Faq[] = [
   {
     question: "What are your payment terms?",
     answer:
-      "{{TODO: payment terms — deposit amount, progress payments, accepted payment methods}}. Terms are stated plainly on every written estimate before any work begins.",
+      "{{TODO: payment terms: deposit amount, progress payments, accepted payment methods}}. Terms are stated plainly on every written estimate before any work begins.",
   },
 ];
 

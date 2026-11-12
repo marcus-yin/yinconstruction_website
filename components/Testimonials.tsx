@@ -1,7 +1,7 @@
 import { testimonials } from "@/content/site";
 
 /**
- * Renders nothing while content/site.ts has no testimonials — no fake
+ * Renders nothing while content/site.ts has no testimonials - no fake
  * reviews. Add real, permissioned quotes to light this section up.
  */
 export default function Testimonials() {
@@ -26,7 +26,7 @@ export default function Testimonials() {
               <figcaption className="mt-4 text-sm font-semibold text-navy-900">
                 {t.author}
                 {t.location && (
-                  <span className="font-normal text-steel-500"> — {t.location}</span>
+                  <span className="font-normal text-steel-500">, {t.location}</span>
                 )}
               </figcaption>
             </figure>

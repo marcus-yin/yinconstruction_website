@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Services",
   description: `${company.name} services: ${services
     .map((s) => s.title.split(" (")[0])
-    .join(", ")} — serving Syracuse and Central New York with free written estimates.`,
+    .join(", ")}. Serving Syracuse and Central New York with free written estimates.`,
   alternates: { canonical: "/services/" },
 };
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
     <>
       <PageHeader
         title="Our Services"
-        description="Interior construction from bare studs to final coat of paint — for homeowners, builders, and commercial clients across Central New York."
+        description="Interior construction from bare studs to final coat of paint, for homeowners, builders, and commercial clients across Central New York."
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

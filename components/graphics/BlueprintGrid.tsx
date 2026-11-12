@@ -1,5 +1,5 @@
 /**
- * Subtle blueprint-style grid background. Absolutely positioned — place
+ * Subtle blueprint-style grid background. Absolutely positioned - place
  * inside a `relative` container. Decorative only (aria-hidden).
  */
 type BlueprintGridProps = {

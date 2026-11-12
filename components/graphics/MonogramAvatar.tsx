@@ -1,5 +1,5 @@
 /**
- * SVG monogram circle used instead of headshots. Decorative — the member's
+ * SVG monogram circle used instead of headshots. Decorative - the member's
  * name is rendered as adjacent text by the caller.
  */
 export default function MonogramAvatar({
