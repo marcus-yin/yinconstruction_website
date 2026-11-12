@@ -11,17 +11,17 @@ verified value from the business owner.
 | --- | --- |
 | `{{TODO: business phone number}}` | Phone number as it should display, e.g. `(315) 123-4567` |
 | `{{TODO: business phone, digits only with +1 prefix}}` | Same number for `tel:` links, e.g. `+13151234567` |
-| `{{TODO: business email address}}` | Email for mailto links and the contact page |
+<!-- Business email set: marcus@yinconstruction.com (activates the quote form's mailto delivery) -->
 | `{{TODO: street address}}` / `{{TODO: city}}` / `{{TODO: ZIP code}}` | Business mailing address (footer + LocalBusiness schema) |
 | `{{TODO: business hours, e.g. Mon-Fri 7:00 AM - 5:00 PM}}` | Hours for footer, contact page, and schema |
 
 > The production domain is set: `https://yinconstruction.com` drives
 > canonical URLs, sitemap.xml, robots.txt, and Open Graph.
 >
-> **Email unlocks the contact form.** The quote form intentionally does not
-> fake submissions. Once `{{TODO: business email address}}` is replaced with
-> a real address, submitting the form opens the visitor's email app
-> pre-filled (a real delivery path). For direct submissions, see
+> **Contact form delivery is active.** The business email is set to
+> marcus@yinconstruction.com, so submitting the quote form opens the
+> visitor's email app pre-filled with the request (a real delivery path).
+> For direct background submissions (no email app required), see
 > `docs/CONTACT-FORM-BACKEND.md`.
 
 ## Home page

@@ -23,7 +23,7 @@ export const company = {
     /** Used in tel: links, e.g. "+13151234567" */
     e164: "{{TODO: business phone, digits only with +1 prefix}}",
   },
-  email: "{{TODO: business email address}}",
+  email: "marcus@yinconstruction.com",
   address: {
     street: "{{TODO: street address}}",
     city: "{{TODO: city}}",
