@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { navLinks, company, services, pathways } from "@/content/site";
+import { visibleNavLinks as navLinks, company, services, pathways } from "@/content/site";
 
 export const dynamic = "force-static";
 

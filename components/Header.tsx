@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { navLinks, company } from "@/content/site";
+import { visibleNavLinks as navLinks, company } from "@/content/site";
 import ServiceIcon from "@/components/graphics/ServiceIcon";
 
 export default function Header() {

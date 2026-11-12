@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navLinks, services, company, pathways } from "@/content/site";
+import { visibleNavLinks as navLinks, services, company, pathways } from "@/content/site";
 
 export default function Footer() {
   return (

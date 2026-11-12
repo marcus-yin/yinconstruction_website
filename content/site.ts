@@ -51,16 +51,26 @@ export const hero = {
 
 /* -------------------------------------------------------------- navigation */
 
-export type NavLink = { href: string; label: string };
+export type NavLink = {
+  href: string;
+  label: string;
+  /** Temporarily hidden from navigation and sitemap (page still exists). */
+  hidden?: boolean;
+};
 
 export const navLinks: NavLink[] = [
   { href: "/", label: "Home" },
   { href: "/services/", label: "Services" },
-  { href: "/projects/", label: "Projects" },
+  // Hidden until real projects/certifications are ready to publish.
+  // Remove `hidden: true` to bring them back.
+  { href: "/projects/", label: "Projects", hidden: true },
   { href: "/about/", label: "About" },
-  { href: "/certifications/", label: "Certifications" },
+  { href: "/certifications/", label: "Certifications", hidden: true },
   { href: "/contact/", label: "Contact" },
 ];
+
+/** Navigation links currently shown in the header, footer, and sitemap. */
+export const visibleNavLinks: NavLink[] = navLinks.filter((link) => !link.hidden);
 
 /* ------------------------------------------------------------------- flags */
 
