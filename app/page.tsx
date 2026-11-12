@@ -1,65 +1,111 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import QuoteCTA from "@/components/QuoteCTA";
-import ServiceCard from "@/components/ServiceCard";
+import { Award, MessagesSquare, HardHat, MapPin, Check } from "lucide-react";
+import BlueprintGrid from "@/components/graphics/BlueprintGrid";
+import IsometricHero from "@/components/graphics/IsometricHero";
+import SectionDivider from "@/components/graphics/SectionDivider";
+import StatCounter from "@/components/graphics/StatCounter";
+import ProcessTimeline from "@/components/graphics/ProcessTimeline";
+import ServiceAreaMap from "@/components/graphics/ServiceAreaMap";
+import ServiceIcon from "@/components/graphics/ServiceIcon";
 import ProjectCard from "@/components/ProjectCard";
-import { aboutContent, projects, services, siteConfig } from "@/lib/content";
+import Testimonials from "@/components/Testimonials";
+import QuoteCTA from "@/components/QuoteCTA";
+import {
+  company,
+  seo,
+  trustStrip,
+  stats,
+  services,
+  processSteps,
+  values,
+  serviceAreas,
+  visibleProjects,
+} from "@/content/site";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | ${siteConfig.tagline}`,
-  description: `${siteConfig.serviceArea}. Residential and commercial construction, renovation, roofing, concrete, and project management. Request a free quote.`,
+  title: seo.defaultTitle,
+  description: seo.defaultDescription,
+  alternates: { canonical: "/" },
 };
 
+const VALUE_ICONS = {
+  quality: Award,
+  communication: MessagesSquare,
+  safety: HardHat,
+  local: MapPin,
+} as const;
+
 export default function HomePage() {
-  const featuredProjects = projects.filter((p) => p.featured);
+  const featured = visibleProjects().slice(0, 3);
 
   return (
     <>
-      {/* Hero */}
-      <section aria-labelledby="hero-heading" className="relative bg-slate-900">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero.svg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-30"
-          />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
-          <p className="text-sm font-semibold uppercase tracking-widest text-amber-400">
-            {siteConfig.serviceArea}
-          </p>
-          <h1
-            id="hero-heading"
-            className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-          >
-            Built right. Built to last.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-            [PLACEHOLDER] Introduce your company in one or two sentences:
-            what you build, who you serve, and why clients choose you.
-          </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/contact/"
-              className="rounded-md bg-amber-500 px-6 py-3 text-center text-base font-semibold text-slate-900 transition-colors hover:bg-amber-400"
+      {/* ------------------------------------------------------------ Hero */}
+      <section aria-labelledby="hero-heading" className="relative bg-mist">
+        <BlueprintGrid tone="light" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-widest text-steel-600">
+              {company.serviceAreaStatement}
+            </p>
+            <h1
+              id="hero-heading"
+              className="mt-4 font-heading text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl lg:text-6xl"
             >
-              Request a Free Quote
-            </Link>
-            <Link
-              href="/projects/"
-              className="rounded-md border border-slate-500 px-6 py-3 text-center text-base font-semibold text-white transition-colors hover:border-slate-300 hover:bg-slate-800"
-            >
-              View Our Work
-            </Link>
+              Built right. Built to last.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-700">
+              {company.name} delivers straight walls and flawless finishes for
+              homes and businesses across Central New York — with{" "}
+              {"{{TODO: years in business}}"} years of hands-on drywall and
+              interior construction experience behind every estimate.
+            </p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/contact/"
+                className="rounded-md bg-accent-600 px-6 py-3 text-center font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700"
+              >
+                Request a Free Quote
+              </Link>
+              <Link
+                href="/projects/"
+                className="rounded-md border-2 border-navy-700 px-6 py-3 text-center font-heading text-base font-semibold text-navy-700 transition-colors hover:bg-navy-700 hover:text-white"
+              >
+                View Our Work
+              </Link>
+            </div>
           </div>
+          <IsometricHero className="hidden w-full lg:block" />
+        </div>
+
+        {/* Trust strip */}
+        <div className="relative border-t border-steel-200 bg-white/70">
+          <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-3 px-4 py-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+            {trustStrip.map((item) => (
+              <li key={item.label} className="flex items-center gap-2 text-sm">
+                <Check aria-hidden="true" className="h-4 w-4 shrink-0 text-navy-700" />
+                <span className="font-semibold text-navy-900">{item.label}</span>
+                {item.note && (
+                  <span className="hidden text-xs text-steel-500 xl:inline">{item.note}</span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* Services overview */}
+      {/* ------------------------------------------------------- Stats band */}
+      <section aria-label="Company statistics" className="relative bg-navy-800">
+        <BlueprintGrid tone="dark" />
+        <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8 lg:py-16">
+          {stats.map((stat) => (
+            <StatCounter key={stat.label} stat={stat} />
+          ))}
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------- Services */}
       <section
         aria-labelledby="services-heading"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
@@ -68,117 +114,174 @@ export default function HomePage() {
           <div>
             <h2
               id="services-heading"
-              className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+              className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
             >
               Our Services
             </h2>
-            <p className="mt-3 max-w-2xl text-lg text-slate-600">
-              From new construction to renovations, we handle projects of
-              every size across Central New York.
+            <p className="mt-3 max-w-2xl text-lg text-steel-600">
+              From a single patch to a full commercial fit-out — interior work,
+              done right the first time.
             </p>
           </div>
           <Link
             href="/services/"
-            className="shrink-0 text-base font-semibold text-amber-600 hover:text-amber-700 hover:underline"
+            className="shrink-0 font-heading text-base font-semibold text-navy-700 hover:text-navy-900 hover:underline"
           >
             All services &rarr;
           </Link>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.slice(0, 3).map((service) => (
-            <ServiceCard key={service.slug} service={service} />
-          ))}
-        </div>
-      </section>
-
-      {/* Featured projects */}
-      <section aria-labelledby="projects-heading" className="bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2
-                id="projects-heading"
-                className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => (
+            <li key={service.slug}>
+              <Link
+                href={`/services/#${service.slug}`}
+                className="group flex h-full flex-col rounded-lg border border-steel-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
-                Featured Projects
-              </h2>
-              <p className="mt-3 max-w-2xl text-lg text-slate-600">
-                Sample entries shown below — replace with your real completed
-                projects.
-              </p>
-            </div>
-            <Link
-              href="/projects/"
-              className="shrink-0 text-base font-semibold text-amber-600 hover:text-amber-700 hover:underline"
-            >
-              All projects &rarr;
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
+                <span className="flex h-12 w-12 items-center justify-center rounded-md bg-navy-50 text-navy-700 transition-colors group-hover:bg-navy-700 group-hover:text-white">
+                  <ServiceIcon name={service.icon} className="h-6 w-6" />
+                </span>
+                <h3 className="mt-4 font-heading text-lg font-semibold text-navy-900">
+                  {service.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-steel-600">
+                  {service.short}
+                </p>
+                <span className="mt-4 text-sm font-semibold text-navy-700 group-hover:underline">
+                  Learn more &rarr;
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ------------------------------------------------------ How we work */}
+      <div className="text-mist">
+        <SectionDivider />
+      </div>
+      <section aria-labelledby="process-heading" className="bg-mist">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <h2
+            id="process-heading"
+            className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
+          >
+            How We Work
+          </h2>
+          <p className="mt-3 max-w-2xl text-lg text-steel-600">
+            Six steps, no surprises — the same process on every job.
+          </p>
+          <div className="mt-12">
+            <ProcessTimeline steps={processSteps} />
           </div>
         </div>
       </section>
+      <div className="rotate-180 text-mist">
+        <SectionDivider />
+      </div>
 
-      {/* Company introduction */}
+      {/* ----------------------------------------------------- Why choose us */}
       <section
-        aria-labelledby="about-heading"
-        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+        aria-labelledby="values-heading"
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
       >
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+        <h2
+          id="values-heading"
+          className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
+        >
+          Why Choose Us
+        </h2>
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((value) => {
+            const Icon = VALUE_ICONS[value.icon];
+            return (
+              <li
+                key={value.title}
+                className="rounded-lg border border-steel-200 bg-white p-6 shadow-sm"
+              >
+                <Icon aria-hidden="true" className="h-7 w-7 text-navy-700" />
+                <h3 className="mt-4 font-heading text-base font-semibold text-navy-900">
+                  {value.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-steel-600">
+                  {value.description}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {/* ------------------------------------------------------ Service area */}
+      <section aria-labelledby="area-heading" className="bg-mist">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
           <div>
             <h2
-              id="about-heading"
-              className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+              id="area-heading"
+              className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
             >
-              A local team you can count on
+              Where We Work
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              {aboutContent.intro}
+            <p className="mt-4 text-lg leading-relaxed text-steel-700">
+              Based in the Syracuse area, we take on projects across Central New
+              York — within roughly {"{{TODO: service radius in miles}}"} miles
+              of Syracuse.
             </p>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-              {aboutContent.values.map((value) => (
-                <li key={value.title} className="flex items-start gap-3">
-                  <svg
-                    aria-hidden="true"
-                    className="mt-0.5 h-5 w-5 shrink-0 text-amber-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="font-medium text-slate-800">
-                    {value.title}
-                  </span>
+            <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {serviceAreas.map((area) => (
+                <li key={area.name} className="flex items-center gap-2 text-steel-800">
+                  <MapPin aria-hidden="true" className="h-4 w-4 shrink-0 text-navy-700" />
+                  {area.name}
                 </li>
               ))}
             </ul>
-            <Link
-              href="/about/"
-              className="mt-8 inline-block text-base font-semibold text-amber-600 hover:text-amber-700 hover:underline"
-            >
-              Learn more about us &rarr;
-            </Link>
+            <p className="mt-4 text-sm text-steel-500">
+              Outside these areas? <Link href="/contact/" className="font-semibold text-navy-700 underline">Ask us</Link> — we regularly travel for the right project.
+            </p>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
-            <Image
-              src="/images/about.svg"
-              alt="Placeholder image — replace with a photo of your team or jobsite"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+          <ServiceAreaMap className="mx-auto w-full max-w-md" />
         </div>
       </section>
 
-      {/* Quote request CTA */}
+      {/* ------------------------------------------------- Featured projects */}
+      <section
+        aria-labelledby="projects-heading"
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <h2
+            id="projects-heading"
+            className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
+          >
+            Featured Projects
+          </h2>
+          <Link
+            href="/projects/"
+            className="shrink-0 font-heading text-base font-semibold text-navy-700 hover:text-navy-900 hover:underline"
+          >
+            All projects &rarr;
+          </Link>
+        </div>
+        {featured.length > 0 ? (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10 rounded-lg border border-dashed border-steel-300 bg-mist p-8 text-center text-steel-600">
+            Project portfolio coming soon. In the meantime,{" "}
+            <Link href="/contact/" className="font-semibold text-navy-700 underline">
+              request a free quote
+            </Link>{" "}
+            and we&apos;ll walk you through recent work in person.
+          </p>
+        )}
+      </section>
+
+      {/* ----------------------------------------------------- Testimonials */}
+      <Testimonials />
+
+      {/* ------------------------------------------------------- Closing CTA */}
       <QuoteCTA />
     </>
   );

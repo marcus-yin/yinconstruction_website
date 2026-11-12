@@ -1,28 +1,27 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectsGrid from "@/components/ProjectsGrid";
 import QuoteCTA from "@/components/QuoteCTA";
-import { projects, siteConfig } from "@/lib/content";
+import { company, visibleProjects } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: `Browse projects by ${siteConfig.name}, serving Central New York. Residential, commercial, renovation, roofing, and concrete work.`,
+  description: `Residential, commercial, and renovation projects by ${company.name} across Central New York — drywall, interiors, and finishing work.`,
+  alternates: { canonical: "/projects/" },
 };
 
 export default function ProjectsPage() {
+  const projects = visibleProjects();
+
   return (
     <>
       <PageHeader
         title="Our Projects"
-        description="The entries below are placeholder samples, not real completed projects. Replace them with your own work — with photos and client permission — before launch."
+        description="A look at the kind of work we do — from single-room repairs to full commercial fit-outs."
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
+        <ProjectsGrid projects={projects} />
       </div>
 
       <QuoteCTA />
