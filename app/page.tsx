@@ -95,15 +95,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------- Stats band */}
-      <section aria-label="Company statistics" className="relative bg-navy-800">
-        <BlueprintGrid tone="dark" />
-        <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8 lg:py-16">
-          {stats.map((stat) => (
-            <StatCounter key={stat.label} stat={stat} />
-          ))}
-        </div>
-      </section>
+      {/* ------------------------------------------------------- Stats band
+          Hidden until at least one real number is set in content/site.ts
+          (stats with value: null would otherwise show {{TODO}} tokens). */}
+      {stats.some((stat) => stat.value !== null) && (
+        <section aria-label="Company statistics" className="relative bg-navy-800">
+          <BlueprintGrid tone="dark" />
+          <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8 lg:py-16">
+            {stats
+              .filter((stat) => stat.value !== null)
+              .map((stat) => (
+                <StatCounter key={stat.label} stat={stat} />
+              ))}
+          </div>
+        </section>
+      )}
 
       {/* --------------------------------------------------------- Services */}
       <section
