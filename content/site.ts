@@ -19,18 +19,22 @@ export const company = {
   url: "https://yinconstruction.com",
   phone: {
     /** Shown to visitors, e.g. "(315) 123-4567" */
-    display: "{{TODO: business phone number}}",
+    display: "(315) 216-7657",
     /** Used in tel: links, e.g. "+13151234567" */
-    e164: "{{TODO: business phone, digits only with +1 prefix}}",
+    e164: "+13152167657",
   },
-  email: "marcus@yinconstruction.com",
+  email: "info@yinconstruction.com",
   address: {
-    street: "{{TODO: street address}}",
-    city: "{{TODO: city}}",
+    // Street/city/zip hidden for now. To publish the address, replace the
+    // nulls, e.g. street: "123 Main St", city: "Syracuse", zip: "13201".
+    street: null as string | null,
+    city: null as string | null,
     state: "NY",
-    zip: "{{TODO: ZIP code}}",
+    zip: null as string | null,
   },
-  hours: "{{TODO: business hours, e.g. Mon-Fri 7:00 AM - 5:00 PM}}",
+  hours: "Mon-Fri 7:00 AM - 5:00 PM, Sat 10:00 AM - 2:00 PM",
+  /** Same hours in schema.org openingHours format for structured data. */
+  hoursSchema: ["Mo-Fr 07:00-17:00", "Sa 10:00-14:00"],
   serviceAreaStatement:
     "Serving Syracuse and communities throughout Central New York",
 } as const;
@@ -598,7 +602,8 @@ export const about = {
   intro:
     "YIN Construction is a drywall and interior construction contractor based in Central New York, serving homeowners, builders, and businesses across the Syracuse area.",
   story: [
-    "YIN Construction was founded in {{TODO: founding year}} by {{TODO: founder name and background}}. {{TODO: 2-3 sentences about how the company started and what it focused on early on}}.",
+    // Founding paragraph hidden until real details are available. Restore as:
+    // "YIN Construction was founded in {{TODO: founding year}} by {{TODO: founder name and background}}. {{TODO: 2-3 sentences about how the company started and what it focused on early on}}.",
     "Today we focus on what we do best: drywall installation and finishing, commercial interiors, and the renovations that turn unused space into favorite rooms. We keep our crews small and accountable, and the person who estimates your project is the one who answers for it.",
   ],
   mission:
@@ -623,23 +628,10 @@ export type TeamMember = {
   initials: string;
 };
 
-export const teamMembers: TeamMember[] = [
-  {
-    name: "{{TODO: team member 1 name}}",
-    role: "{{TODO: team member 1 role}}",
-    initials: "01",
-  },
-  {
-    name: "{{TODO: team member 2 name}}",
-    role: "{{TODO: team member 2 role}}",
-    initials: "02",
-  },
-  {
-    name: "{{TODO: team member 3 name}}",
-    role: "{{TODO: team member 3 role}}",
-    initials: "03",
-  },
-];
+// The "Our Team" section on the About page is hidden while this array is
+// empty. Add real members to bring it back, e.g.:
+// { name: "Jane Doe", role: "Project Manager", initials: "JD" },
+export const teamMembers: TeamMember[] = [];
 
 /* ----------------------------------------------------------- certifications */
 

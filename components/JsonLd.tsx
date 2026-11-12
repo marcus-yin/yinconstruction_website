@@ -17,13 +17,14 @@ export default function JsonLd() {
     email: company.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: company.address.street,
-      addressLocality: company.address.city,
+      // Street/city/zip are omitted until the address is published in site.ts.
+      ...(company.address.street && { streetAddress: company.address.street }),
+      ...(company.address.city && { addressLocality: company.address.city }),
       addressRegion: company.address.state,
-      postalCode: company.address.zip,
+      ...(company.address.zip && { postalCode: company.address.zip }),
       addressCountry: "US",
     },
-    openingHours: company.hours,
+    openingHours: company.hoursSchema,
     areaServed: serviceAreas.map((area) => ({
       "@type": "City",
       name: `${area.name}, NY`,

@@ -9,17 +9,15 @@ verified value from the business owner.
 
 | Token | What's needed |
 | --- | --- |
-| `{{TODO: business phone number}}` | Phone number as it should display, e.g. `(315) 123-4567` |
-| `{{TODO: business phone, digits only with +1 prefix}}` | Same number for `tel:` links, e.g. `+13151234567` |
-<!-- Business email set: marcus@yinconstruction.com (activates the quote form's mailto delivery) -->
-| `{{TODO: street address}}` / `{{TODO: city}}` / `{{TODO: ZIP code}}` | Business mailing address (footer + LocalBusiness schema) |
-| `{{TODO: business hours, e.g. Mon-Fri 7:00 AM - 5:00 PM}}` | Hours for footer, contact page, and schema |
+| Street address / city / ZIP | Hidden for now (nulls in `company.address`) — fill in to show in the footer and LocalBusiness schema |
 
-> The production domain is set: `https://yinconstruction.com` drives
-> canonical URLs, sitemap.xml, robots.txt, and Open Graph.
+> Already set: phone `(315) 216-7657`, email `info@yinconstruction.com`,
+> hours `Mon-Fri 7:00 AM - 5:00 PM, Sat 10:00 AM - 2:00 PM`, and the
+> production domain `https://yinconstruction.com` (drives canonical URLs,
+> sitemap.xml, robots.txt, and Open Graph).
 >
 > **Contact form delivery is active.** The business email is set to
-> marcus@yinconstruction.com, so submitting the quote form opens the
+> info@yinconstruction.com, so submitting the quote form opens the
 > visitor's email app pre-filled with the request (a real delivery path).
 > For direct background submissions (no email app required), see
 > `docs/CONTACT-FORM-BACKEND.md`.
@@ -62,11 +60,9 @@ verified value from the business owner.
 
 | Token | What's needed |
 | --- | --- |
-| `{{TODO: founding year}}` | Company story, first paragraph |
-| `{{TODO: founder name and background}}` | Company story |
-| `{{TODO: 2-3 sentences about how the company started...}}` | Company story |
+| Founding story paragraph | Hidden for now (commented out in `about.story`) — needs founding year, founder name/background, and 2-3 sentences on how the company started |
 | `{{TODO: OSHA 10/30 cards held by team members}}` | Safety section (also on Certifications) |
-| `{{TODO: team member 1/2/3 name}}` + `role` | Team section — update `initials` for the monogram avatars too |
+| Team members | "Our Team" section is hidden while `teamMembers` is empty — add real names/roles/initials to bring it back |
 
 ## Certifications page
 

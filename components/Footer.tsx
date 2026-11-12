@@ -59,11 +59,13 @@ export default function Footer() {
               Contact
             </p>
             <address className="mt-3 space-y-2 text-sm not-italic">
-              <p>
-                {company.address.street}
-                <br />
-                {company.address.city}, {company.address.state} {company.address.zip}
-              </p>
+              {company.address.street && (
+                <p>
+                  {company.address.street}
+                  <br />
+                  {company.address.city}, {company.address.state} {company.address.zip}
+                </p>
+              )}
               <p>
                 <a href={`tel:${company.phone.e164}`} className="hover:text-white hover:underline">
                   {company.phone.display}

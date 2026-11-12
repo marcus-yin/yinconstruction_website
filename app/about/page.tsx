@@ -129,7 +129,9 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team */}
+        {/* Team - hidden while teamMembers in content/site.ts is empty;
+            add real members there to bring this section back. */}
+        {teamMembers.length > 0 && (
         <section aria-labelledby="team-heading" className="mt-20">
           <h2
             id="team-heading"
@@ -154,6 +156,7 @@ export default function AboutPage() {
             ))}
           </ul>
         </section>
+        )}
       </div>
 
       <QuoteCTA />
