@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navLinks, siteConfig } from "@/lib/content";
+import { Menu, X } from "lucide-react";
+import { navLinks, company } from "@/content/site";
+import ServiceIcon from "@/components/graphics/ServiceIcon";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,23 +17,23 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-steel-200 bg-white/95 backdrop-blur">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8"
       >
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900"
+          className="flex items-center gap-2.5 font-heading text-lg font-bold tracking-tight text-navy-900"
           onClick={() => setMenuOpen(false)}
         >
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded bg-amber-500 font-black text-slate-900"
+            className="flex h-9 w-9 items-center justify-center rounded bg-navy-700 text-white"
           >
-            {siteConfig.name.charAt(0)}
+            <ServiceIcon name="framing" className="h-5 w-5" />
           </span>
-          <span>{siteConfig.name}</span>
+          <span>{company.name}</span>
         </Link>
 
         {/* Desktop navigation */}
@@ -43,8 +45,8 @@ export default function Header() {
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   isActive(link.href)
-                    ? "bg-slate-100 text-slate-900"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-navy-50 text-navy-900"
+                    : "text-steel-600 hover:bg-navy-50 hover:text-navy-900"
                 }`}
               >
                 {link.label}
@@ -54,7 +56,7 @@ export default function Header() {
           <li>
             <Link
               href="/contact/"
-              className="ml-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-amber-400"
+              className="ml-2 rounded-md bg-accent-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-700"
             >
               Get a Quote
             </Link>
@@ -64,42 +66,23 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="rounded-md p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
+          className="rounded-md p-2 text-navy-900 hover:bg-navy-50 lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span className="sr-only">
-            {menuOpen ? "Close menu" : "Open menu"}
-          </span>
-          <svg
-            aria-hidden="true"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            )}
-          </svg>
+          <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+          {menuOpen ? (
+            <X aria-hidden="true" className="h-6 w-6" />
+          ) : (
+            <Menu aria-hidden="true" className="h-6 w-6" />
+          )}
         </button>
       </nav>
 
       {/* Mobile navigation */}
       {menuOpen && (
-        <div id="mobile-menu" className="border-t border-slate-200 lg:hidden">
+        <div id="mobile-menu" className="border-t border-steel-200 bg-white lg:hidden">
           <ul className="space-y-1 px-4 py-3">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -109,8 +92,8 @@ export default function Header() {
                   onClick={() => setMenuOpen(false)}
                   className={`block rounded-md px-3 py-2 text-base font-medium ${
                     isActive(link.href)
-                      ? "bg-slate-100 text-slate-900"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      ? "bg-navy-50 text-navy-900"
+                      : "text-steel-600 hover:bg-navy-50 hover:text-navy-900"
                   }`}
                 >
                   {link.label}
@@ -121,7 +104,7 @@ export default function Header() {
               <Link
                 href="/contact/"
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md bg-amber-500 px-4 py-2 text-center text-base font-semibold text-slate-900 hover:bg-amber-400"
+                className="block rounded-md bg-accent-600 px-4 py-2 text-center text-base font-semibold text-white hover:bg-accent-700"
               >
                 Get a Quote
               </Link>
