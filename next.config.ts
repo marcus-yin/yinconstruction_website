@@ -1,17 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Static export: `next build` emits a fully static site into ./out,
-  // ready for AWS Amplify, S3 + CloudFront, or any static host.
-  output: "export",
+  // Deployed via AWS Amplify's Next.js hosting integration (build output
+  // directory: .next). All pages are statically generated at build time.
+  //
+  // To deploy to S3 + CloudFront instead, add `output: "export"` here and
+  // deploy the ./out directory.
 
-  // Required for static export (no image optimization server).
-  // Images are served as-is; use appropriately sized source files.
+  // The placeholder images are SVGs, which Next's image optimizer rejects
+  // by default. Once real JPG/WebP photos replace them, remove this to
+  // enable Amplify's image optimization.
   images: {
     unoptimized: true,
   },
 
-  // Emit folder/index.html pages so S3/CloudFront resolve clean URLs.
+  // Serve pages at trailing-slash URLs, matching internal links.
   trailingSlash: true,
 };
 

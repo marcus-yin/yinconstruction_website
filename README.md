@@ -1,9 +1,9 @@
 # Construction Company Website
 
 A static marketing website for a Central New York construction company, built
-with Next.js (App Router), TypeScript, and Tailwind CSS. The site is fully
-statically generated (`output: "export"`), so it can be hosted cheaply on AWS
-Amplify, S3 + CloudFront, or any static host. No database, no authentication.
+with Next.js (App Router), TypeScript, and Tailwind CSS. Every page is
+statically generated at build time, so hosting stays inexpensive. No database,
+no authentication.
 
 > **All content is placeholder content.** Every value marked `[PLACEHOLDER]`
 > — company name, contact details, services, projects, and especially the
@@ -16,7 +16,7 @@ Amplify, S3 + CloudFront, or any static host. No database, no authentication.
 ```bash
 npm install
 npm run dev     # develop at http://localhost:3000
-npm run build   # static site output in ./out
+npm run build   # production build in ./.next (all pages prerendered)
 ```
 
 ## Replacing placeholder content
@@ -50,18 +50,24 @@ Formspree) or an AWS SES endpoint in `components/ContactForm.tsx`.
 
 ## Deploying
 
-### AWS Amplify Hosting
+### AWS Amplify Hosting (current setup)
 
-Connect the repo in the Amplify console. Build settings:
+The repo is connected to Amplify's Next.js hosting integration:
 
 - Build command: `npm run build`
-- Output directory: `out`
+- Output directory: `.next` (per AWS docs for Next.js 14+ apps, including
+  fully static ones)
 
-### S3 + CloudFront
+Every push to `main` triggers a deploy. All pages are prerendered at build
+time and served from Amplify's CDN.
 
-1. `npm run build`
-2. Sync `out/` to your S3 bucket: `aws s3 sync out/ s3://YOUR_BUCKET --delete`
-3. Point CloudFront at the bucket. Because `trailingSlash` is enabled, pages
+### S3 + CloudFront (alternative)
+
+1. Add `output: "export"` to `next.config.ts` so `next build` writes a plain
+   static site to `out/`.
+2. `npm run build`
+3. Sync `out/` to your S3 bucket: `aws s3 sync out/ s3://YOUR_BUCKET --delete`
+4. Point CloudFront at the bucket. Because `trailingSlash` is enabled, pages
    are emitted as `folder/index.html`; configure CloudFront to rewrite
    `.../` to `.../index.html` (a small CloudFront Function or the S3 website
    endpoint handles this). Set `404.html` as the error page.
