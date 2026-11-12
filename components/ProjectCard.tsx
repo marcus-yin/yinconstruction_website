@@ -57,7 +57,11 @@ export default function ProjectCard({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-steel-100 pt-4 text-sm">
+        <dl
+          className={`mt-4 grid gap-3 border-t border-steel-100 pt-4 text-sm ${
+            project.completionYear ? "grid-cols-3" : "grid-cols-2"
+          }`}
+        >
           <div>
             <dt className="text-xs font-medium uppercase tracking-wide text-steel-500">Size</dt>
             <dd className="mt-0.5 break-words text-steel-800">{project.sqft}</dd>
@@ -66,6 +70,14 @@ export default function ProjectCard({ project }: { project: Project }) {
             <dt className="text-xs font-medium uppercase tracking-wide text-steel-500">Duration</dt>
             <dd className="mt-0.5 break-words text-steel-800">{project.duration}</dd>
           </div>
+          {project.completionYear && (
+            <div>
+              <dt className="text-xs font-medium uppercase tracking-wide text-steel-500">
+                Completed
+              </dt>
+              <dd className="mt-0.5 break-words text-steel-800">{project.completionYear}</dd>
+            </div>
+          )}
         </dl>
       </div>
     </article>

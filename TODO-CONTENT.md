@@ -14,7 +14,15 @@ verified value from the business owner.
 | `{{TODO: business email address}}` | Email for mailto links and the contact page |
 | `{{TODO: street address}}` / `{{TODO: city}}` / `{{TODO: ZIP code}}` | Business mailing address (footer + LocalBusiness schema) |
 | `{{TODO: business hours, e.g. Mon-Fri 7:00 AM - 5:00 PM}}` | Hours for footer, contact page, and schema |
-| `{{TODO: production domain}}` | The real domain (`company.url`) — drives canonical URLs, sitemap.xml, robots.txt, Open Graph. Keep it a valid URL. |
+
+> The production domain is set: `https://yinconstruction.com` drives
+> canonical URLs, sitemap.xml, robots.txt, and Open Graph.
+>
+> **Email unlocks the contact form.** The quote form intentionally does not
+> fake submissions. Once `{{TODO: business email address}}` is replaced with
+> a real address, submitting the form opens the visitor's email app
+> pre-filled (a real delivery path). For direct submissions, see
+> `docs/CONTACT-FORM-BACKEND.md`.
 
 ## Home page
 
@@ -42,6 +50,7 @@ verified value from the business owner.
 | --- | --- |
 | `{{TODO: square footage}}` (×3) | Real square footage for each project that replaces a sample |
 | `{{TODO: project duration}}` (×3) | Real duration for each project |
+| `{{TODO: year}}` (×3) | Completion year for each project |
 
 > The three current entries are marked `sample: true` and **do not render in
 > production** until `flags.showSampleProjectsInProduction` is flipped or they
@@ -80,9 +89,10 @@ verified value from the business owner.
 
 ## Code TODOs (not content)
 
-- `lib/submit-quote.ts` — the quote form currently resolves without sending
-  anything. Wire it to AWS Lambda + SES or a form service (instructions in
-  the file).
+- Contact form backend — the form currently composes the request honestly
+  (mailto once an email is configured; a plain "not connected" notice until
+  then). For direct submissions, follow `docs/CONTACT-FORM-BACKEND.md`
+  (AWS Lambda + SES or a form service).
 - `next.config.ts` — remove `images.unoptimized` once real photos replace
   SVG graphics, to enable Amplify image optimization.
 - `testimonials` in `content/site.ts` is an empty array by design. The

@@ -1,5 +1,34 @@
 # What changed
 
+## Round 2 — lead-generation and local SEO audit (Nov 12)
+
+- **Honest contact form**: removed the placeholder handler that falsely
+  showed "we got your request." The form now composes the request and either
+  opens the visitor's email app pre-filled (once a real business email is set
+  in `content/site.ts`) or states plainly that online submission isn't
+  connected, with a copyable message. Backend plan:
+  `docs/CONTACT-FORM-BACKEND.md`.
+- **Real domain**: canonical URLs, sitemap, robots, Open Graph, and JSON-LD
+  now use `https://yinconstruction.com`.
+- **New hero positioning**: "Professional Drywall & Interior Construction in
+  Central New York" with dual CTAs — Request an Estimate / Request a
+  Subcontractor Bid — replacing the generic quote CTA and the
+  years-in-business token in the hero.
+- **Customer pathways**: new `/homeowners/` and `/general-contractors/`
+  pages (shared `PathwayPage` template), a "Who We Work With" homepage
+  section, and a required "I am a" customer-type field on the quote form,
+  preselected via `?type=homeowner|contractor|commercial` links.
+- **Dedicated service pages**: `/services/[slug]/` for all six services
+  (SSG via `generateStaticParams`) with unique titles/descriptions/canonicals,
+  breadcrumbs, Service structured data, related-service internal links, and a
+  natural service-area mention. `/services/` is now an overview grid; old
+  `#anchor` links still land via preserved ids. Footer and homepage link to
+  the new pages.
+- **Projects page**: with no verified projects published, the page now shows
+  a capabilities statement with an estimate CTA instead of a bare empty
+  state. `ProjectCard` gained an optional completion-year field.
+
+
 A full redesign of the YIN Construction site, replacing the generic
 placeholder build. Framework and routing are unchanged (Next.js App Router,
 TypeScript, Tailwind CSS 4, deployed to AWS Amplify from `main`).
