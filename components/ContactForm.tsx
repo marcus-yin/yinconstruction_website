@@ -47,13 +47,22 @@ export default function ContactForm() {
   const [copied, setCopied] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
+  function isValidPhone(raw: string): boolean {
+    const trimmed = raw.trim();
+    // Only digits and common phone formatting characters allowed.
+    if (!/^[+]?[\d\s().-]+$/.test(trimmed)) return false;
+    const digits = trimmed.replace(/\D/g, "");
+    // 10 digits, or 11 with a leading 1 (US country code).
+    return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+  }
+
   function validate(data: QuoteRequest): Errors {
     const next: Errors = {};
     if (!data.name.trim()) next.name = "Please enter your name.";
     if (!data.phone.trim()) {
       next.phone = "Please enter a phone number.";
-    } else if (data.phone.replace(/\D/g, "").length < 10) {
-      next.phone = "Please enter a 10-digit phone number.";
+    } else if (!isValidPhone(data.phone)) {
+      next.phone = "Please enter a 10-digit phone number (e.g. 315-555-0100).";
     }
     if (!data.email.trim()) {
       next.email = "Please enter an email address.";
@@ -256,6 +265,8 @@ export default function ContactForm() {
             name="phone"
             type="tel"
             autoComplete="tel"
+            inputMode="tel"
+            placeholder="315-555-0100"
             required
             aria-invalid={errors.phone ? true : undefined}
             aria-describedby={errors.phone ? "phone-error" : undefined}
