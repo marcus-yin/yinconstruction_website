@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Phone, Mail, Clock, MapPin } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
@@ -6,8 +7,8 @@ import Accordion from "@/components/ui/Accordion";
 import { company, faqs } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact & Free Quote",
-  description: `Request a free quote from ${company.name}. ${company.serviceAreaStatement}. Free written estimates for residential and commercial work.`,
+  title: "Contact — Request an Estimate or Subcontractor Bid",
+  description: `Request a free estimate or subcontractor bid from ${company.name}. ${company.serviceAreaStatement}. Free written estimates for residential and commercial work.`,
   alternates: { canonical: "/contact/" },
 };
 
@@ -26,14 +27,17 @@ export default function ContactPage() {
               id="form-heading"
               className="font-heading text-2xl font-bold tracking-tight text-navy-900"
             >
-              Request a Free Quote
+              Request an Estimate or Subcontractor Bid
             </h2>
             <p className="mt-2 text-steel-600">
-              Tell us about the project and we&apos;ll follow up to schedule a
-              free site visit and written estimate.
+              Homeowner or general contractor, tell us about the project and
+              we&apos;ll follow up to schedule a free site visit and written
+              estimate.
             </p>
             <div className="mt-8">
-              <ContactForm />
+              <Suspense fallback={null}>
+                <ContactForm />
+              </Suspense>
             </div>
           </section>
 

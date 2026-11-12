@@ -1,8 +1,14 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { services, company } from "@/content/site";
-import { submitQuoteRequest, type QuoteRequest } from "@/lib/submit-quote";
+import { useSearchParams } from "next/navigation";
+import { services, company, customerTypes } from "@/content/site";
+import {
+  buildMailtoUrl,
+  formatQuoteMessage,
+  isEmailConfigured,
+  type QuoteRequest,
+} from "@/lib/quote-request";
 
 type Errors = Partial<Record<keyof QuoteRequest, string>>;
 
@@ -16,13 +22,29 @@ const TIMELINES = [
 
 const CONTACT_METHODS = ["Phone", "Email", "Text"];
 
+/** Maps ?type= query values (from CTAs) to customer types. */
+const TYPE_PARAM_MAP: Record<string, (typeof customerTypes)[number]> = {
+  homeowner: "Homeowner",
+  contractor: "General Contractor",
+  commercial: "Commercial Client",
+};
+
 const inputClass =
   "mt-2 block w-full rounded-md border border-steel-300 bg-white px-3 py-2 text-navy-900 shadow-sm focus:border-navy-600 focus:outline-none focus:ring-2 focus:ring-navy-600";
 const errorClass = "border-red-600";
 
 export default function ContactForm() {
+  const searchParams = useSearchParams();
+  const preselectedType =
+    TYPE_PARAM_MAP[searchParams.get("type") ?? ""] ?? "";
+
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [result, setResult] = useState<
+    | { kind: "idle" }
+    | { kind: "mailto-opened"; message: string }
+    | { kind: "not-connected"; message: string }
+  >({ kind: "idle" });
+  const [copied, setCopied] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   function validate(data: QuoteRequest): Errors {
@@ -38,6 +60,7 @@ export default function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
       next.email = "Please enter a valid email address (e.g. name@example.com).";
     }
+    if (!data.customerType) next.customerType = "Please tell us who you are.";
     if (!data.projectType) next.projectType = "Please choose a project type.";
     if (!data.timeline) next.timeline = "Please choose a timeline.";
     if (!data.description.trim())
@@ -47,20 +70,18 @@ export default function ContactForm() {
     return next;
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     // Honeypot: real visitors never see or fill this field.
-    if (String(formData.get("website") ?? "").length > 0) {
-      setStatus("success");
-      return;
-    }
+    if (String(formData.get("website") ?? "").length > 0) return;
 
     const data: QuoteRequest = {
       name: String(formData.get("name") ?? ""),
-      phone: String(formData.get("phone") ?? ""),
       email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      customerType: String(formData.get("customerType") ?? ""),
       projectType: String(formData.get("projectType") ?? ""),
       town: String(formData.get("town") ?? ""),
       size: String(formData.get("size") ?? ""),
@@ -72,39 +93,103 @@ export default function ContactForm() {
     const nextErrors = validate(data);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
-      const firstInvalid = formRef.current?.querySelector<HTMLElement>(
-        "[aria-invalid='true']"
-      );
-      firstInvalid?.focus();
+      formRef.current
+        ?.querySelector<HTMLElement>("[aria-invalid='true']")
+        ?.focus();
       return;
     }
 
-    setStatus("submitting");
-    try {
-      const result = await submitQuoteRequest(data);
-      setStatus(result.ok ? "success" : "error");
-    } catch {
-      setStatus("error");
+    const message = formatQuoteMessage(data);
+    if (isEmailConfigured()) {
+      // Genuine delivery path: opens the visitor's email app pre-filled.
+      window.location.href = buildMailtoUrl(data);
+      setResult({ kind: "mailto-opened", message });
+    } else {
+      // Honest fallback: no backend and no business email configured yet.
+      setResult({ kind: "not-connected", message });
     }
   }
 
-  if (status === "success") {
+  async function copyMessage(message: string) {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopied(true);
+    } catch {
+      /* clipboard unavailable — the message is selectable below */
+    }
+  }
+
+  if (result.kind !== "idle") {
     return (
-      <div
-        role="status"
-        className="rounded-lg border border-steel-200 bg-mist p-8 text-center"
-      >
-        <h3 className="font-heading text-xl font-bold text-navy-900">
-          Thanks — we got your request.
-        </h3>
-        <p className="mt-2 text-steel-700">
-          We&apos;ll follow up using your preferred contact method. Need us sooner?
-          Call{" "}
-          <a href={`tel:${company.phone.e164}`} className="font-semibold text-navy-700 underline">
-            {company.phone.display}
-          </a>
-          .
-        </p>
+      <div role="status" className="rounded-lg border border-steel-200 bg-mist p-8">
+        {result.kind === "mailto-opened" ? (
+          <>
+            <h3 className="font-heading text-xl font-bold text-navy-900">
+              Almost done — hit send in your email app
+            </h3>
+            <p className="mt-2 text-steel-700">
+              Your email app should have opened with your request pre-filled.
+              Your request is <strong>not sent</strong> until you send that
+              email. If it didn&apos;t open, copy the message below and email
+              it to{" "}
+              <a
+                href={`mailto:${company.email}`}
+                className="font-semibold text-navy-700 underline"
+              >
+                {company.email}
+              </a>
+              , or call{" "}
+              <a
+                href={`tel:${company.phone.e164}`}
+                className="font-semibold text-navy-700 underline"
+              >
+                {company.phone.display}
+              </a>
+              .
+            </p>
+          </>
+        ) : (
+          <>
+            <h3 className="font-heading text-xl font-bold text-navy-900">
+              Online submission isn&apos;t connected yet
+            </h3>
+            <p className="mt-2 text-steel-700">
+              This form doesn&apos;t deliver messages yet — we didn&apos;t want
+              to pretend otherwise. Your request is composed below: copy it and
+              reach us by phone or email, and we&apos;ll take it from there.
+            </p>
+          </>
+        )}
+
+        <label htmlFor="composed-message" className="sr-only">
+          Your composed request
+        </label>
+        <textarea
+          id="composed-message"
+          readOnly
+          rows={10}
+          value={result.message}
+          className="mt-4 block w-full rounded-md border border-steel-300 bg-white px-3 py-2 font-mono text-sm text-navy-900"
+        />
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => copyMessage(result.message)}
+            className="rounded-md bg-navy-700 px-5 py-2.5 font-heading text-sm font-semibold text-white transition-colors hover:bg-navy-800"
+          >
+            {copied ? "Copied!" : "Copy message"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setResult({ kind: "idle" });
+              setCopied(false);
+            }}
+            className="rounded-md border border-steel-300 px-5 py-2.5 font-heading text-sm font-semibold text-steel-700 transition-colors hover:border-navy-700 hover:text-navy-900"
+          >
+            Back to form
+          </button>
+        </div>
       </div>
     );
   }
@@ -144,6 +229,24 @@ export default function ContactForm() {
         </div>
 
         <div>
+          <label htmlFor="email" className="block text-sm font-semibold text-navy-900">
+            Email <span aria-hidden="true">*</span>
+            <span className="sr-only">(required)</span>
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            className={`${inputClass} ${errors.email ? errorClass : ""}`}
+          />
+          {fieldError("email", "email-error")}
+        </div>
+
+        <div>
           <label htmlFor="phone" className="block text-sm font-semibold text-navy-900">
             Phone <span aria-hidden="true">*</span>
             <span className="sr-only">(required)</span>
@@ -162,21 +265,29 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-navy-900">
-            Email <span aria-hidden="true">*</span>
+          <label htmlFor="customerType" className="block text-sm font-semibold text-navy-900">
+            I am a <span aria-hidden="true">*</span>
             <span className="sr-only">(required)</span>
           </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
+          <select
+            id="customerType"
+            name="customerType"
             required
-            aria-invalid={errors.email ? true : undefined}
-            aria-describedby={errors.email ? "email-error" : undefined}
-            className={`${inputClass} ${errors.email ? errorClass : ""}`}
-          />
-          {fieldError("email", "email-error")}
+            defaultValue={preselectedType}
+            aria-invalid={errors.customerType ? true : undefined}
+            aria-describedby={errors.customerType ? "customerType-error" : undefined}
+            className={`${inputClass} ${errors.customerType ? errorClass : ""}`}
+          >
+            <option value="" disabled>
+              Select customer type
+            </option>
+            {customerTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          {fieldError("customerType", "customerType-error")}
         </div>
 
         <div>
@@ -208,7 +319,7 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="town" className="block text-sm font-semibold text-navy-900">
-            Location / town
+            Project location / town
           </label>
           <input
             id="town"
@@ -232,9 +343,9 @@ export default function ContactForm() {
           />
         </div>
 
-        <div className="sm:col-span-2">
+        <div>
           <label htmlFor="timeline" className="block text-sm font-semibold text-navy-900">
-            Timeline <span aria-hidden="true">*</span>
+            Desired timeline <span aria-hidden="true">*</span>
             <span className="sr-only">(required)</span>
           </label>
           <select
@@ -275,7 +386,8 @@ export default function ContactForm() {
         />
         <p id="description-hint" className="mt-1.5 text-sm text-steel-500">
           What are we building or fixing? Rooms, ceilings, existing conditions —
-          anything helps.
+          anything helps. Have photos? Mention them here and we&apos;ll request
+          them by email (direct photo upload is coming).
         </p>
         {fieldError("description", "description-error")}
       </div>
@@ -304,28 +416,12 @@ export default function ContactForm() {
         {fieldError("preferredContact", "preferredContact-error")}
       </fieldset>
 
-      <div>
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-        >
-          {status === "submitting" ? "Sending…" : "Send Quote Request"}
-        </button>
-        {status === "error" && (
-          <p role="alert" className="mt-3 text-sm font-medium text-red-700">
-            Something went wrong sending your request. Please call{" "}
-            <a href={`tel:${company.phone.e164}`} className="underline">
-              {company.phone.display}
-            </a>{" "}
-            or email{" "}
-            <a href={`mailto:${company.email}`} className="underline">
-              {company.email}
-            </a>
-            .
-          </p>
-        )}
-      </div>
+      <button
+        type="submit"
+        className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 sm:w-auto"
+      >
+        Review &amp; Send Request
+      </button>
     </form>
   );
 }
