@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navLinks, services, company } from "@/content/site";
+import { navLinks, services, company, pathways } from "@/content/site";
 
 export default function Footer() {
   return (
@@ -19,7 +19,7 @@ export default function Footer() {
               {services.map((service) => (
                 <li key={service.slug}>
                   <Link
-                    href={`/services/#${service.slug}`}
+                    href={`/services/${service.slug}/`}
                     className="text-sm hover:text-white hover:underline"
                   >
                     {service.title}
@@ -38,6 +38,16 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm hover:text-white hover:underline">
                     {link.label}
+                  </Link>
+                </li>
+              ))}
+              {pathways.map((pathway) => (
+                <li key={pathway.slug}>
+                  <Link
+                    href={`/${pathway.slug}/`}
+                    className="text-sm hover:text-white hover:underline"
+                  >
+                    For {pathway.label}
                   </Link>
                 </li>
               ))}

@@ -15,12 +15,8 @@
 export const company = {
   name: "YIN Construction",
   tagline: "Drywall & interior construction for Central New York",
-  /**
-   * {{TODO: production domain}} — replace before launch so canonical URLs,
-   * sitemap.xml and Open Graph metadata resolve to the real site.
-   * Must remain a valid absolute URL.
-   */
-  url: "https://www.example.com",
+  /** Production domain — drives canonical URLs, sitemap.xml, and Open Graph. */
+  url: "https://yinconstruction.com",
   phone: {
     /** Shown to visitors, e.g. "(315) 123-4567" */
     display: "{{TODO: business phone number}}",
@@ -38,6 +34,20 @@ export const company = {
   serviceAreaStatement:
     "Serving Syracuse and communities throughout Central New York",
 } as const;
+
+/* --------------------------------------------------------------------- hero */
+
+export const hero = {
+  kicker: "Built right. Built to last.",
+  headline: "Professional Drywall & Interior Construction in Central New York",
+  subcopy:
+    "Drywall installation, taping and finishing, repairs, and interior construction services for residential and commercial projects throughout the Syracuse region.",
+  primaryCta: { label: "Request an Estimate", href: "/contact/?type=homeowner" },
+  secondaryCta: {
+    label: "Request a Subcontractor Bid",
+    href: "/contact/?type=contractor",
+  },
+};
 
 /* -------------------------------------------------------------- navigation */
 
@@ -264,6 +274,66 @@ export const finishLevels: FinishLevelInfo[] = [
   },
 ];
 
+/* ---------------------------------------------------------------- pathways */
+
+export type Pathway = {
+  slug: string;
+  /** Short label for cards and links */
+  label: string;
+  title: string;
+  intro: string;
+  /** Slugs into `services` — only services actually offered to this audience */
+  serviceSlugs: string[];
+  /** What this audience can expect — verifiable process claims only */
+  expectations: string[];
+  cta: { label: string; href: string };
+};
+
+export const pathways: Pathway[] = [
+  {
+    slug: "homeowners",
+    label: "Homeowners",
+    title: "Drywall & Interior Work for Your Home",
+    intro:
+      "From a single wall repair to a fully finished basement, we handle residential drywall and interior projects across the Syracuse region — with free written estimates, dust control, and daily cleanup, because you still live there while we work.",
+    serviceSlugs: [
+      "drywall-installation",
+      "repair-patching",
+      "residential-renovations",
+      "painting-finish",
+    ],
+    expectations: [
+      "Free written estimate after a short site visit",
+      "Dust containment and broom-clean jobsites every night",
+      "One point of contact from estimate to walkthrough",
+      "Clear schedule before work begins",
+    ],
+    cta: { label: "Request an Estimate", href: "/contact/?type=homeowner" },
+  },
+  {
+    slug: "general-contractors",
+    label: "General Contractors & Commercial",
+    title: "A Drywall Sub That Protects Your Schedule",
+    intro:
+      "We provide drywall installation, taping and finishing, metal stud framing, and acoustical ceilings for general contractors, property managers, and commercial clients in Central New York — bid from your drawings, built to your schedule.",
+    serviceSlugs: [
+      "drywall-installation",
+      "taping-finishing",
+      "commercial-interiors",
+    ],
+    expectations: [
+      "Bids from architectural drawings with clear scope and exclusions",
+      "Coordination with other trades and building management",
+      "Fire-rated and sound-rated assemblies built to spec",
+      "Certificate of insurance available on request",
+    ],
+    cta: {
+      label: "Request a Subcontractor Bid",
+      href: "/contact/?type=contractor",
+    },
+  },
+];
+
 /* ------------------------------------------------------------ trust & stats */
 
 export type TrustItem = { label: string; note?: string };
@@ -411,6 +481,8 @@ export type Project = {
   scope: string[];
   sqft: string;
   duration: string;
+  /** Year the project was completed */
+  completionYear?: string;
   /** Optional photo slot — add a file under public/images/projects/ and reference it here. */
   photo?: { src: string; alt: string };
   /** Sample entries are examples, not real work. See flags.showSampleProjectsInProduction. */
@@ -430,6 +502,7 @@ export const projects: Project[] = [
     ],
     sqft: "{{TODO: square footage}}",
     duration: "{{TODO: project duration}}",
+    completionYear: "{{TODO: year}}",
     sample: true,
   },
   {
@@ -444,6 +517,7 @@ export const projects: Project[] = [
     ],
     sqft: "{{TODO: square footage}}",
     duration: "{{TODO: project duration}}",
+    completionYear: "{{TODO: year}}",
     sample: true,
   },
   {
@@ -458,9 +532,31 @@ export const projects: Project[] = [
     ],
     sqft: "{{TODO: square footage}}",
     duration: "{{TODO: project duration}}",
+    completionYear: "{{TODO: year}}",
     sample: true,
   },
 ];
+
+/**
+ * Shown on the Projects page (and the homepage) while no verified projects
+ * are published — an honest capabilities statement instead of an empty
+ * gallery or invented work.
+ */
+export const projectsCapabilities = {
+  heading: "Our portfolio is being built — our capabilities aren't",
+  paragraphs: [
+    "YIN Construction is actively taking on drywall and interior construction projects across Central New York. As completed projects are documented (with client permission), they'll be published here.",
+    "In the meantime, here's the kind of work we're equipped to take on today:",
+  ],
+  capabilities: [
+    "Residential drywall installation, repair, and finishing",
+    "Basement finishing and interior renovations",
+    "Commercial tenant improvements with metal stud framing",
+    "Acoustical ceiling (ACT) systems",
+    "Level 0–5 taping and finishing, including Level 5 skim coats",
+    "Priming and painting of finished surfaces",
+  ],
+};
 
 /** Projects visible in the current environment (hides samples in production). */
 export function visibleProjects(): Project[] {
@@ -612,6 +708,16 @@ export const faqs: Faq[] = [
       "{{TODO: payment terms — deposit amount, progress payments, accepted payment methods}}. Terms are stated plainly on every written estimate before any work begins.",
   },
 ];
+
+/* ------------------------------------------------------------ contact form */
+
+export const customerTypes = [
+  "Homeowner",
+  "General Contractor",
+  "Commercial Client",
+] as const;
+
+export type CustomerType = (typeof customerTypes)[number];
 
 /* ---------------------------------------------------------------------- SEO */
 

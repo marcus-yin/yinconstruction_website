@@ -14,6 +14,8 @@ import QuoteCTA from "@/components/QuoteCTA";
 import {
   company,
   seo,
+  hero,
+  pathways,
   trustStrip,
   stats,
   services,
@@ -21,6 +23,7 @@ import {
   values,
   serviceAreas,
   visibleProjects,
+  projectsCapabilities,
 } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -47,32 +50,29 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-steel-600">
-              {company.serviceAreaStatement}
+              {hero.kicker}
             </p>
             <h1
               id="hero-heading"
-              className="mt-4 font-heading text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl lg:text-6xl"
+              className="mt-4 font-heading text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl"
             >
-              Built right. Built to last.
+              {hero.headline}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-700">
-              {company.name} delivers straight walls and flawless finishes for
-              homes and businesses across Central New York — with{" "}
-              {"{{TODO: years in business}}"} years of hands-on drywall and
-              interior construction experience behind every estimate.
+              {hero.subcopy}
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/contact/"
+                href={hero.primaryCta.href}
                 className="rounded-md bg-accent-600 px-6 py-3 text-center font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700"
               >
-                Request a Free Quote
+                {hero.primaryCta.label}
               </Link>
               <Link
-                href="/projects/"
+                href={hero.secondaryCta.href}
                 className="rounded-md border-2 border-navy-700 px-6 py-3 text-center font-heading text-base font-semibold text-navy-700 transition-colors hover:bg-navy-700 hover:text-white"
               >
-                View Our Work
+                {hero.secondaryCta.label}
               </Link>
             </div>
           </div>
@@ -134,7 +134,7 @@ export default function HomePage() {
           {services.map((service) => (
             <li key={service.slug}>
               <Link
-                href={`/services/#${service.slug}`}
+                href={`/services/${service.slug}/`}
                 className="group flex h-full flex-col rounded-lg border border-steel-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-md bg-navy-50 text-navy-700 transition-colors group-hover:bg-navy-700 group-hover:text-white">
@@ -153,6 +153,51 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* -------------------------------------------------- Customer pathways */}
+      <section aria-labelledby="pathways-heading" className="relative bg-navy-800">
+        <BlueprintGrid tone="dark" />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <h2
+            id="pathways-heading"
+            className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
+            Who We Work With
+          </h2>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {pathways.map((pathway) => (
+              <div
+                key={pathway.slug}
+                className="flex flex-col rounded-lg bg-white p-8 shadow-sm"
+              >
+                <p className="text-sm font-semibold uppercase tracking-wider text-steel-500">
+                  For {pathway.label}
+                </p>
+                <h3 className="mt-2 font-heading text-xl font-bold text-navy-900">
+                  {pathway.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-steel-600">
+                  {pathway.intro}
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href={pathway.cta.href}
+                    className="rounded-md bg-accent-600 px-5 py-2.5 text-center font-heading text-sm font-semibold text-white transition-colors hover:bg-accent-700"
+                  >
+                    {pathway.cta.label}
+                  </Link>
+                  <Link
+                    href={`/${pathway.slug}/`}
+                    className="rounded-md border border-navy-700 px-5 py-2.5 text-center font-heading text-sm font-semibold text-navy-700 transition-colors hover:bg-navy-50"
+                  >
+                    Learn more
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ------------------------------------------------------ How we work */}
@@ -268,13 +313,18 @@ export default function HomePage() {
             ))}
           </div>
         ) : (
-          <p className="mt-10 rounded-lg border border-dashed border-steel-300 bg-mist p-8 text-center text-steel-600">
-            Project portfolio coming soon. In the meantime,{" "}
-            <Link href="/contact/" className="font-semibold text-navy-700 underline">
-              request a free quote
-            </Link>{" "}
-            and we&apos;ll walk you through recent work in person.
-          </p>
+          <div className="mt-10 rounded-lg border border-steel-200 bg-mist p-8">
+            <h3 className="font-heading text-lg font-semibold text-navy-900">
+              {projectsCapabilities.heading}
+            </h3>
+            <p className="mt-2 max-w-3xl text-steel-700">
+              {projectsCapabilities.paragraphs[0]}{" "}
+              <Link href="/contact/" className="font-semibold text-navy-700 underline">
+                Request an estimate
+              </Link>{" "}
+              and we&apos;ll walk you through recent work in person.
+            </p>
+          </div>
         )}
       </section>
 
