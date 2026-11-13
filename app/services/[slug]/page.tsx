@@ -13,6 +13,7 @@ import {
   finishLevels,
   hero,
 } from "@/content/site";
+import { serviceSchema } from "@/lib/schema";
 
 type Params = { slug: string };
 
@@ -55,15 +56,7 @@ export default async function ServiceDetailPage({
   const areaList = serviceAreas.map((a) => a.name).join(", ");
 
   // Service structured data - only facts already stated on the page.
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.title,
-    description: service.short,
-    url: `${company.url}/services/${service.slug}/`,
-    provider: { "@type": "GeneralContractor", name: company.name, url: company.url },
-    areaServed: serviceAreas.map((area) => ({ "@type": "City", name: `${area.name}, NY` })),
-  };
+  const schema = serviceSchema(service);
 
   return (
     <>

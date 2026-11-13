@@ -6,6 +6,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/generate-brand-assets.mjs",
     "build": "next build",
+    "postbuild": "node scripts/validate-jsonld.mjs",
     "start": "next start"
   },
   "dependencies": {

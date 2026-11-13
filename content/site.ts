@@ -35,6 +35,21 @@ export const company = {
   hours: "Mon-Fri 7:00 AM - 5:00 PM, Sat 10:00 AM - 2:00 PM",
   /** Same hours in schema.org openingHours format for structured data. */
   hoursSchema: ["Mo-Fr 07:00-17:00", "Sa 10:00-14:00"],
+  /** Same hours as schema.org OpeningHoursSpecification input. */
+  hoursSpecification: [
+    {
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "07:00",
+      closes: "17:00",
+    },
+    { days: ["Saturday"], opens: "10:00", closes: "14:00" },
+  ],
+  /**
+   * Office coordinates for LocalBusiness geo schema.
+   * {{TODO: latitude/longitude of the business address}} - set both numbers
+   * (e.g. lat: 43.0481, lng: -76.1474) once the address is published.
+   */
+  geo: { lat: null as number | null, lng: null as number | null },
   serviceAreaStatement:
     "Serving Syracuse and communities throughout Central New York",
 } as const;
@@ -45,6 +60,26 @@ export const company = {
  * The www host 301-redirects here (see docs/SEO-SETUP.md).
  */
 export const SITE_URL = company.url;
+
+/**
+ * Public profile URLs for schema.org sameAs and local citations.
+ * {{TODO}} tokens are filtered out of the emitted schema until replaced
+ * with real URLs (see docs/SEO-SETUP.md for creating these profiles).
+ */
+export const socialProfiles = [
+  "{{TODO: Google Business Profile URL}}",
+  "{{TODO: Facebook page URL}}",
+  "{{TODO: LinkedIn company page URL}}",
+];
+
+/** Counties covered, used in schema areaServed alongside the city list. */
+export const countiesServed = [
+  "Onondaga County",
+  "Oneida County",
+  "Cayuga County",
+  "Oswego County",
+  "Cortland County",
+];
 
 /* --------------------------------------------------------------------- hero */
 

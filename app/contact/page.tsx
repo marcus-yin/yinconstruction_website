@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
 import Accordion from "@/components/ui/Accordion";
 import { company, faqs } from "@/content/site";
+import { faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Free Drywall Estimates in Syracuse, NY",
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  // FAQPage schema covering the finished (token-free) Q&As shown below.
+  const faqJson = faqSchema(faqs);
+
   return (
     <>
       <PageHeader
@@ -126,6 +130,13 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
+
+      {faqJson && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJson) }}
+        />
+      )}
     </>
   );
 }
