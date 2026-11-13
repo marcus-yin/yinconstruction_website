@@ -1,0 +1,32 @@
+# AWS Amplify Hosting custom headers (picked up automatically on deploy).
+# Docs: https://docs.aws.amazon.com/amplify/latest/userguide/custom-headers.html
+#
+# Goal: long cache lifetimes for static assets so repeat visits and
+# multi-page sessions hit the browser cache (Core Web Vitals / LCP).
+#
+# - /_next/static/* files are content-hashed by Next.js, so they can be
+#   cached forever (immutable). Next also sets this itself; declaring it
+#   here guarantees it at the CDN edge.
+# - Files in /public (favicons, OG image, webmanifest) are NOT hashed,
+#   so they get one week + stale-while-revalidate instead of immutable.
+customHeaders:
+  - pattern: '/_next/static/**'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  - pattern: '**/*.woff2'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  - pattern: '**/*.png'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=604800, stale-while-revalidate=86400'
+  - pattern: '**/*.svg'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=604800, stale-while-revalidate=86400'
+  - pattern: '/site.webmanifest'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=86400'
