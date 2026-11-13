@@ -39,6 +39,13 @@ export const company = {
     "Serving Syracuse and communities throughout Central New York",
 } as const;
 
+/**
+ * Canonical production origin (no www, no trailing slash). Drives canonical
+ * URLs, Open Graph, sitemap.xml, robots.txt, and all JSON-LD schema URLs.
+ * The www host 301-redirects here (see docs/SEO-SETUP.md).
+ */
+export const SITE_URL = company.url;
+
 /* --------------------------------------------------------------------- hero */
 
 export const hero = {
