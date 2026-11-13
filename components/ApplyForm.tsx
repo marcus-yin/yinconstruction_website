@@ -3,11 +3,24 @@
 import { useRef, useState, type FormEvent } from "react";
 import { company, applyPage } from "@/content/site";
 import { isEmailConfigured } from "@/lib/quote-request";
+import { submitToBackend } from "@/lib/form-backend";
 import {
   buildApplicationMailtoUrl,
   formatApplicationMessage,
   type JobApplication,
 } from "@/lib/job-application";
+
+const MAX_RESUME_BYTES = 4 * 1024 * 1024;
+
+async function fileToBase64(file: File): Promise<string> {
+  const dataUrl = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+  return dataUrl.slice(dataUrl.indexOf(",") + 1);
+}
 
 type Errors = Partial<Record<keyof JobApplication, string>>;
 
@@ -21,9 +34,11 @@ export default function ApplyForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [result, setResult] = useState<
     | { kind: "idle" }
+    | { kind: "sent"; resumeAttached: boolean }
     | { kind: "mailto-opened"; message: string; resumeFileName: string }
     | { kind: "not-connected"; message: string }
   >({ kind: "idle" });
+  const [sending, setSending] = useState(false);
   const [copied, setCopied] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -58,18 +73,16 @@ export default function ApplyForm() {
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     // Honeypot: real visitors never see or fill this field.
     if (String(formData.get("website") ?? "").length > 0) return;
 
-    // The resume file is never uploaded (no backend). We record its name so
-    // the composed email reminds the applicant to attach it themselves.
     const resumeFile = formData.get("resume");
-    const resumeFileName =
-      resumeFile instanceof File && resumeFile.size > 0 ? resumeFile.name : "";
+    const hasResume = resumeFile instanceof File && resumeFile.size > 0;
+    const resumeFileName = hasResume ? resumeFile.name : "";
 
     const data: JobApplication = {
       name: String(formData.get("name") ?? ""),
@@ -85,6 +98,9 @@ export default function ApplyForm() {
     };
 
     const nextErrors = validate(data);
+    if (hasResume && resumeFile.size > MAX_RESUME_BYTES) {
+      nextErrors.resumeFileName = "Resume must be under 4 MB.";
+    }
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       formRef.current
@@ -93,13 +109,35 @@ export default function ApplyForm() {
       return;
     }
 
+    // Primary path: deliver directly to the business inbox (resume attached).
+    setSending(true);
+    try {
+      const resume = hasResume
+        ? { filename: resumeFile.name, dataBase64: await fileToBase64(resumeFile) }
+        : undefined;
+      const delivered = await submitToBackend({
+        kind: "application",
+        website: "",
+        ...data,
+        resume,
+      });
+      if (delivered) {
+        setResult({ kind: "sent", resumeAttached: hasResume });
+        return;
+      }
+    } catch {
+      /* fall through to the mailto fallback below */
+    } finally {
+      setSending(false);
+    }
+
+    // Fallback: open the applicant's email app pre-filled (resume must be
+    // attached by hand there - mailto links can't carry files).
     const message = formatApplicationMessage(data);
     if (isEmailConfigured()) {
-      // Genuine delivery path: opens the applicant's email app pre-filled.
       window.location.href = buildApplicationMailtoUrl(data);
       setResult({ kind: "mailto-opened", message, resumeFileName });
     } else {
-      // Honest fallback: no backend and no business email configured yet.
       setResult({ kind: "not-connected", message });
     }
   }
@@ -111,6 +149,35 @@ export default function ApplyForm() {
     } catch {
       /* clipboard unavailable - the message is selectable below */
     }
+  }
+
+  if (result.kind === "sent") {
+    return (
+      <div role="status" className="rounded-lg border border-steel-200 bg-mist p-8">
+        <h3 className="font-heading text-xl font-bold text-navy-900">
+          Application sent
+        </h3>
+        <p className="mt-2 text-steel-700">
+          Your application{result.resumeAttached ? " and resume were" : " was"}{" "}
+          delivered to{" "}
+          <a
+            href={`mailto:${company.email}`}
+            className="font-semibold text-navy-700 underline"
+          >
+            {company.email}
+          </a>
+          . We&apos;ll follow up using the contact method you chose. Questions
+          in the meantime? Call{" "}
+          <a
+            href={`tel:${company.phone.e164}`}
+            className="font-semibold text-navy-700 underline"
+          >
+            {company.phone.display}
+          </a>
+          .
+        </p>
+      </div>
+    );
   }
 
   if (result.kind !== "idle") {
@@ -359,13 +426,14 @@ export default function ApplyForm() {
             name="resume"
             type="file"
             accept=".pdf,.doc,.docx"
-            aria-describedby="resume-hint"
+            aria-invalid={errors.resumeFileName ? true : undefined}
+            aria-describedby={errors.resumeFileName ? "resume-error" : "resume-hint"}
             className="mt-2 block w-full text-sm text-steel-700 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-navy-700 file:px-4 file:py-2.5 file:font-heading file:text-sm file:font-semibold file:text-white hover:file:bg-navy-800"
           />
           <p id="resume-hint" className="mt-1.5 text-sm text-steel-500">
-            PDF or Word. You&apos;ll attach it yourself to the email this form
-            opens; nothing is uploaded here.
+            PDF or Word, up to 4 MB. Sent along with your application.
           </p>
+          {fieldError("resumeFileName", "resume-error")}
         </div>
       </div>
 
@@ -416,9 +484,10 @@ export default function ApplyForm() {
 
       <button
         type="submit"
-        className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 sm:w-auto"
+        disabled={sending}
+        className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
-        Review &amp; Send Application
+        {sending ? "Sending..." : "Send Application"}
       </button>
     </form>
   );

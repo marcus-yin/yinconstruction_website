@@ -1,19 +1,14 @@
 import { company } from "@/content/site";
 
 /**
- * Quote/bid request handling for a static site with NO form backend yet.
+ * Quote/bid request fallback handling.
  *
- * IMPORTANT: there is intentionally no fake "submission succeeded" path.
- * Until a backend exists, the form composes the request into a structured
- * message the visitor can send themselves:
- *   - if a real business email is configured in content/site.ts, we open
- *     the visitor's email app pre-filled (mailto:) - a genuine delivery path;
- *   - otherwise we show the composed message with copy instructions and
- *     the business phone/email placeholders, and say plainly that online
- *     submission isn't connected yet.
- *
- * See docs/CONTACT-FORM-BACKEND.md for the plan to wire real submissions
- * (AWS Lambda + SES or a form service). Do not embed credentials here.
+ * The primary delivery path is the form backend (lib/form-backend.ts -
+ * Lambda + SES, see infra/form-handler/). This module is the fallback used
+ * when that request fails: it composes the request into a structured
+ * message the visitor sends themselves via their email app (mailto:).
+ * There is intentionally no fake "submission succeeded" path anywhere.
+ * Do not embed credentials here.
  */
 
 export type QuoteRequest = {

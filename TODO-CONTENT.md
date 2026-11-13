@@ -16,11 +16,11 @@ verified value from the business owner.
 > production domain `https://yinconstruction.com` (drives canonical URLs,
 > sitemap.xml, robots.txt, and Open Graph).
 >
-> **Contact form delivery is active.** The business email is set to
-> info@yinconstruction.com, so submitting the quote form opens the
-> visitor's email app pre-filled with the request (a real delivery path).
-> For direct background submissions (no email app required), see
-> `docs/CONTACT-FORM-BACKEND.md`.
+> **Contact form delivery is active.** Both the quote form and the job
+> application form submit directly to info@yinconstruction.com via the
+> Lambda + SES backend (resumes arrive as attachments). If a submission
+> fails, the forms fall back to opening the visitor's email app pre-filled.
+> See `infra/form-handler/README.md`.
 
 ## Home page
 
@@ -85,10 +85,10 @@ verified value from the business owner.
 
 ## Code TODOs (not content)
 
-- Contact form backend — the form currently composes the request honestly
-  (mailto once an email is configured; a plain "not connected" notice until
-  then). For direct submissions, follow `docs/CONTACT-FORM-BACKEND.md`
-  (AWS Lambda + SES or a form service).
+- ~~Contact form backend~~ — **done**: both forms deliver directly to
+  info@yinconstruction.com via Lambda + SES (resumes attached on the apply
+  form). See `infra/form-handler/README.md`. The mailto flow remains as the
+  fallback if a request fails.
 - `next.config.ts` — remove `images.unoptimized` once real photos replace
   SVG graphics, to enable Amplify image optimization.
 - `testimonials` in `content/site.ts` is an empty array by design. The

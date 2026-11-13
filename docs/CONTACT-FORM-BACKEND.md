@@ -1,10 +1,15 @@
-# Contact form backend — implementation plan
+# Contact form backend
 
-## Current behavior (honest by design)
+> **STATUS: IMPLEMENTED (Nov 2026).** The architecture below is deployed:
+> Lambda Function URL + SES, with the quote form (`/contact/`) and the job
+> application form (`/apply/`, resume attachments included) posting to it.
+> See `infra/form-handler/README.md` for the deployed resources and update
+> commands. The mailto flow described below remains as the fallback when a
+> request to the backend fails.
 
-The quote form at `/contact/` validates input and composes a structured
-message, but **no backend exists yet**, so it never claims a message was
-sent:
+## Fallback behavior (honest by design)
+
+If the backend request fails, the form never claims a message was sent:
 
 - If a real business email is set in `content/site.ts`, submitting opens the
   visitor's email app pre-filled (`mailto:`) and the UI explains the email
@@ -13,7 +18,8 @@ sent:
   online submission isn't connected and shows the composed message with a
   copy button plus phone/email guidance.
 
-Logic lives in `lib/quote-request.ts` and `components/ContactForm.tsx`.
+Fallback logic lives in `lib/quote-request.ts`, `lib/job-application.ts`,
+and the form components.
 
 ## Recommended target architecture (AWS, fits Amplify hosting)
 

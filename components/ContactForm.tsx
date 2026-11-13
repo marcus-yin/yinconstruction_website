@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { services, company, customerTypes } from "@/content/site";
+import { submitToBackend } from "@/lib/form-backend";
 import {
   buildMailtoUrl,
   formatQuoteMessage,
@@ -41,9 +42,11 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [result, setResult] = useState<
     | { kind: "idle" }
+    | { kind: "sent" }
     | { kind: "mailto-opened"; message: string }
     | { kind: "not-connected"; message: string }
   >({ kind: "idle" });
+  const [sending, setSending] = useState(false);
   const [copied, setCopied] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -79,7 +82,7 @@ export default function ContactForm() {
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -108,9 +111,27 @@ export default function ContactForm() {
       return;
     }
 
+    // Primary path: deliver directly to the business inbox.
+    setSending(true);
+    try {
+      const delivered = await submitToBackend({
+        kind: "quote",
+        website: "",
+        ...data,
+      });
+      if (delivered) {
+        setResult({ kind: "sent" });
+        return;
+      }
+    } catch {
+      /* fall through to the mailto fallback below */
+    } finally {
+      setSending(false);
+    }
+
+    // Fallback: open the visitor's email app pre-filled.
     const message = formatQuoteMessage(data);
     if (isEmailConfigured()) {
-      // Genuine delivery path: opens the visitor's email app pre-filled.
       window.location.href = buildMailtoUrl(data);
       setResult({ kind: "mailto-opened", message });
     } else {
@@ -126,6 +147,34 @@ export default function ContactForm() {
     } catch {
       /* clipboard unavailable - the message is selectable below */
     }
+  }
+
+  if (result.kind === "sent") {
+    return (
+      <div role="status" className="rounded-lg border border-steel-200 bg-mist p-8">
+        <h3 className="font-heading text-xl font-bold text-navy-900">
+          Request sent
+        </h3>
+        <p className="mt-2 text-steel-700">
+          Your request was delivered to{" "}
+          <a
+            href={`mailto:${company.email}`}
+            className="font-semibold text-navy-700 underline"
+          >
+            {company.email}
+          </a>
+          . We&apos;ll follow up using the contact method you chose. Need us
+          sooner? Call{" "}
+          <a
+            href={`tel:${company.phone.e164}`}
+            className="font-semibold text-navy-700 underline"
+          >
+            {company.phone.display}
+          </a>
+          .
+        </p>
+      </div>
+    );
   }
 
   if (result.kind !== "idle") {
@@ -429,9 +478,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 sm:w-auto"
+        disabled={sending}
+        className="w-full rounded-md bg-accent-600 px-6 py-3 font-heading text-base font-semibold text-white transition-colors hover:bg-accent-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
-        Review &amp; Send Request
+        {sending ? "Sending..." : "Send Request"}
       </button>
     </form>
   );
