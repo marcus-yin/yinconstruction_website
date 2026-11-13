@@ -10,6 +10,11 @@ verified value from the business owner.
 | Token | What's needed |
 | --- | --- |
 | Street address / city / ZIP | Hidden for now (nulls in `company.address`) — fill in to show in the footer and LocalBusiness schema |
+| `{{TODO: Google Business Profile URL}}` | `socialProfiles` — create the profile first (steps in `SEO-SETUP.md`), then paste its public URL; feeds `sameAs` in the LocalBusiness schema |
+| `{{TODO: Facebook page URL}}` | `socialProfiles` — business page URL, if/when one exists |
+| `{{TODO: LinkedIn company page URL}}` | `socialProfiles` — company page URL, if/when one exists |
+| `company.geo` latitude/longitude | Currently `null` — coordinates of the shop/base location enable the `geo` property in the LocalBusiness schema |
+| `{{TODO: GA4 measurement ID}}` | Not in `site.ts` — set the `NEXT_PUBLIC_GA_MEASUREMENT_ID` environment variable in the Amplify console (steps in `SEO-SETUP.md`). Until then no analytics ships |
 
 > Already set: phone `(315) 216-7657`, email `info@yinconstruction.com`,
 > hours `Mon-Fri 7:00 AM - 5:00 PM, Sat 10:00 AM - 2:00 PM`, and the

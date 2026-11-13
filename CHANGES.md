@@ -1,5 +1,61 @@
 # What changed
 
+## Round 3 — technical SEO overhaul (Nov 12)
+
+Ten commits, each building cleanly. Manual follow-ups (Search Console,
+Google Business Profile, Amplify console steps, GA4 ID) are in
+**`SEO-SETUP.md`**.
+
+- **Canonical domain plumbing**: `SITE_URL` constant in `content/site.ts`,
+  canonicals + `openGraph.url` on every page, viewport/theme-color exports,
+  and a useful 404 page linking to the main sections. The Amplify
+  www→apex redirect and amplifyapp.com noindex are documented (not
+  performed) in `SEO-SETUP.md`.
+- **Brand assets at build time** (`scripts/generate-brand-assets.mjs`,
+  runs as `prebuild` via satori + sharp, Poppins, no photos): 1200×630
+  OG image, SVG favicon + 32px PNG, apple-touch-icon, 192/512 PWA icons,
+  `site.webmanifest`; full OG/Twitter card metadata in the root layout.
+- **Titles/descriptions**: unique keyword+location titles (≤60 chars,
+  pattern "[Keyword] in Syracuse, NY | YIN Construction") and ≤155-char
+  descriptions on every page, from the content file.
+- **Structured data** (`lib/schema.ts`): LocalBusiness/GeneralContractor
+  (hours, areaServed cities + counties, sameAs when real), Service schema
+  per service page, FAQPage matching visible Q&A, BreadcrumbList. No
+  Review/AggregateRating — there are no verified reviews. A `postbuild`
+  validator (`scripts/validate-jsonld.mjs`) parses every prerendered page
+  and **fails the build** on malformed schema or leaked `{{TODO}}` tokens
+  (currently 57 blocks checked).
+- **Breadcrumbs** on all inner pages (visible trail + schema).
+- **Service page depth**: each of the six service pages now runs 400–700
+  words with 5 real-trade FAQs (accordion + FAQPage schema). No invented
+  prices, licenses, or project claims.
+- **Service areas**: new `/service-areas/` hub + six genuinely distinct
+  city pages (Syracuse, Utica, Auburn, Rome, Cortland, Oswego & Fulton) —
+  local housing-stock and geography context only, no fabricated job
+  history. Linked from the footer, the homepage Where We Work chips, and
+  the sitemap.
+- **Performance**: `customHttp.yml` long-cache headers (immutable for
+  hashed `/_next/static` assets and fonts, 1 week for brand images);
+  fixed the contact page's CLS (Suspense fallback now reserves the form's
+  height); descriptive anchor text on pathway links.
+- **GA4, opt-in by env var**: set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in
+  Amplify to enable; until then zero analytics code ships. Events:
+  quote/application form submits, tel: clicks, mailto: clicks, quote CTA
+  clicks. No other trackers.
+
+**Lighthouse (mobile, production build, local)** — final run:
+
+| Page | Performance | Accessibility | Best Practices | SEO | LCP | CLS |
+| --- | --- | --- | --- | --- | --- | --- |
+| Home | 100 | 96 | 100 | 100 | 0.9 s | 0 |
+| /services/drywall-installation/ | 100 | 96 | 100 | 100 | 0.8 s | 0 |
+| /contact/ | 100 | 96 | 100 | 100 | 0.8 s | 0 |
+
+The accessibility 96 is a single audit: white text on the brand orange
+(`#d3671f`) CTA buttons measures 3.66:1 against the 4.5:1 target. Fixing
+it means darkening the brand orange sitewide — flagged for a design
+decision rather than changed unilaterally.
+
 ## Round 2 — lead-generation and local SEO audit (Nov 12)
 
 - **Honest contact form**: removed the placeholder handler that falsely

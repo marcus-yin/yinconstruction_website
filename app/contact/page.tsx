@@ -44,7 +44,11 @@ export default function ContactPage() {
               estimate.
             </p>
             <div className="mt-8">
-              <Suspense fallback={null}>
+              {/* Fallback reserves the form's approximate height so the page
+                  doesn't shift when the client-side form hydrates (CLS). */}
+              <Suspense
+                fallback={<div aria-hidden="true" className="min-h-[1100px]" />}
+              >
                 <ContactForm />
               </Suspense>
             </div>

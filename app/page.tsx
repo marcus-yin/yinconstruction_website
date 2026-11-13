@@ -204,6 +204,7 @@ export default function HomePage() {
                     className="rounded-md border border-navy-700 px-5 py-2.5 text-center font-heading text-sm font-semibold text-navy-700 transition-colors hover:bg-navy-50"
                   >
                     Learn more
+                    <span className="sr-only"> about working with us as {pathway.label.toLowerCase()}</span>
                   </Link>
                 </div>
               </div>
