@@ -19,6 +19,10 @@ export default function ServicesPage() {
       <PageHeader
         title="Our Services"
         description="Interior construction from bare studs to final coat of paint, for homeowners, builders, and commercial clients across Central New York."
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services/" },
+        ]}
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

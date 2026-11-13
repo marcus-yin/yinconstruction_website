@@ -17,7 +17,14 @@ export default function PathwayPage({ pathway }: { pathway: Pathway }) {
 
   return (
     <>
-      <PageHeader title={pathway.title} description={pathway.intro} />
+      <PageHeader
+        title={pathway.title}
+        description={pathway.intro}
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: pathway.title, href: `/${pathway.slug}/` },
+        ]}
+      />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Services for this audience */}

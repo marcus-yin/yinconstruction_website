@@ -18,6 +18,10 @@ export default function ProjectsPage() {
       <PageHeader
         title="Our Projects"
         description="A look at the kind of work we do, from single-room repairs to full commercial fit-outs."
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Projects", href: "/projects/" },
+        ]}
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

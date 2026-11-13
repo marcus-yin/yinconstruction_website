@@ -23,6 +23,10 @@ export default function ContactPage() {
       <PageHeader
         title="Contact Us"
         description="Request a free quote or ask a question. We'll get back to you promptly."
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact/" },
+        ]}
       />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

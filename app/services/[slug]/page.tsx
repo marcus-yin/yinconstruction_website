@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 import BlueprintGrid from "@/components/graphics/BlueprintGrid";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ServiceIcon from "@/components/graphics/ServiceIcon";
 import FinishLevels from "@/components/graphics/FinishLevels";
 import QuoteCTA from "@/components/QuoteCTA";
@@ -64,25 +65,13 @@ export default async function ServiceDetailPage({
       <div className="relative bg-navy-900">
         <BlueprintGrid tone="dark" />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-navy-200">
-            <ol className="flex flex-wrap gap-1.5">
-              <li>
-                <Link href="/" className="hover:text-white hover:underline">
-                  Home
-                </Link>
-                <span aria-hidden="true" className="ml-1.5">/</span>
-              </li>
-              <li>
-                <Link href="/services/" className="hover:text-white hover:underline">
-                  Services
-                </Link>
-                <span aria-hidden="true" className="ml-1.5">/</span>
-              </li>
-              <li aria-current="page" className="text-white">
-                {service.title}
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Services", href: "/services/" },
+              { name: service.title, href: `/services/${service.slug}/` },
+            ]}
+          />
           <div className="mt-6 flex items-start gap-5">
             <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white">
               <ServiceIcon name={service.icon} className="h-7 w-7" />

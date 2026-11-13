@@ -14,7 +14,14 @@ export const metadata: Metadata = {
 export default function ApplyPage() {
   return (
     <>
-      <PageHeader title={applyPage.title} description={applyPage.intro} />
+      <PageHeader
+        title={applyPage.title}
+        description={applyPage.intro}
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Apply", href: "/apply/" },
+        ]}
+      />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-3">
