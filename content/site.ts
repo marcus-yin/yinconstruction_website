@@ -636,16 +636,223 @@ export type ServiceArea = {
   mapY: number;
   /** The hub gets the radius ring */
   hub?: boolean;
+  /** Slug of the matching /service-areas/ city page */
+  citySlug: string;
 };
 
 export const serviceAreas: ServiceArea[] = [
-  { name: "Syracuse", mapX: 44, mapY: 54, hub: true },
-  { name: "Oswego", mapX: 34, mapY: 16 },
-  { name: "Fulton", mapX: 39, mapY: 28 },
-  { name: "Rome", mapX: 76, mapY: 30 },
-  { name: "Utica", mapX: 86, mapY: 44 },
-  { name: "Auburn", mapX: 22, mapY: 62 },
-  { name: "Cortland", mapX: 52, mapY: 86 },
+  { name: "Syracuse", mapX: 44, mapY: 54, hub: true, citySlug: "syracuse-ny" },
+  { name: "Oswego", mapX: 34, mapY: 16, citySlug: "oswego-fulton-ny" },
+  { name: "Fulton", mapX: 39, mapY: 28, citySlug: "oswego-fulton-ny" },
+  { name: "Rome", mapX: 76, mapY: 30, citySlug: "rome-ny" },
+  { name: "Utica", mapX: 86, mapY: 44, citySlug: "utica-ny" },
+  { name: "Auburn", mapX: 22, mapY: 62, citySlug: "auburn-ny" },
+  { name: "Cortland", mapX: 52, mapY: 86, citySlug: "cortland-ny" },
+];
+
+/* --------------------------------------------------------- city area pages */
+
+export type CityPage = {
+  slug: string;
+  city: string;
+  /** H1: primary keyword + location */
+  headline: string;
+  /** Full <title> (bypasses the template) */
+  metaTitle: string;
+  metaDescription: string;
+  intro: string;
+  /** Distinct local copy - geography and housing-stock context only, no
+   *  invented past-project claims. */
+  paragraphs: string[];
+  /** Nearby towns, villages, and neighborhoods we also serve (public geography). */
+  nearby: string[];
+  /** Most relevant services with descriptive local anchor text. */
+  featuredServices: { slug: string; label: string }[];
+  schedulingNote: string;
+};
+
+export const cityPages: CityPage[] = [
+  {
+    slug: "syracuse-ny",
+    city: "Syracuse",
+    headline: "Drywall Contractor in Syracuse, NY",
+    metaTitle: "Drywall Contractor in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Syracuse drywall contractor for installation, taping & finishing, repairs, basement finishing, and commercial interiors. Free written estimates.",
+    intro:
+      "Syracuse is our home base. From city neighborhoods to the surrounding Onondaga County suburbs, this is where our crews spend most of their working days.",
+    paragraphs: [
+      "The Syracuse area mixes every kind of interior work we do: older city homes on tree streets in Eastwood, Strathmore, and the Valley with original plaster walls; post-war suburbs in Liverpool, North Syracuse, and Camillus; and newer builds in Clay, Cicero, and Baldwinsville. Plaster-era homes often benefit most from skim coats or plaster-to-drywall conversions, while newer homes tend to call for basement finishing and repair work.",
+      "Commercial and tenant-improvement work concentrates downtown, along Erie Boulevard, and in the office and retail corridors of DeWitt and Salina, where we provide metal stud framing, drywall, and acoustical ceilings on a schedule your lease deadline can live with.",
+      "Snow country is hard on ceilings. Ice dams and roof leaks leave stained, sagging drywall behind, and repairing that properly (moisture checked, compromised board replaced, texture matched) is some of the most common work in any Central New York winter.",
+    ],
+    nearby: [
+      "Liverpool",
+      "Clay",
+      "Cicero",
+      "North Syracuse",
+      "Baldwinsville",
+      "Camillus",
+      "Fayetteville",
+      "Manlius",
+      "DeWitt",
+      "Onondaga",
+    ],
+    featuredServices: [
+      { slug: "repair-patching", label: "Drywall repair in Syracuse" },
+      { slug: "residential-renovations", label: "Basement finishing in Syracuse" },
+      { slug: "commercial-interiors", label: "Commercial drywall for Syracuse tenant improvements" },
+      { slug: "taping-finishing", label: "Taping and finishing for Syracuse homes" },
+    ],
+    schedulingNote:
+      "As our home base, Syracuse and its suburbs get our most flexible scheduling: site visits fit around your day, and small repairs are easy to slot between larger projects.",
+  },
+  {
+    slug: "utica-ny",
+    city: "Utica",
+    headline: "Drywall & Interior Contractor in Utica, NY",
+    metaTitle: "Drywall Contractor in Utica, NY | YIN Construction",
+    metaDescription:
+      "Drywall installation, repair, and interior renovations in Utica and the Mohawk Valley: New Hartford, Whitesboro, Clinton. Free written estimates.",
+    intro:
+      "Utica anchors the eastern edge of our service area, and the Mohawk Valley's housing stock is unlike anywhere else we work.",
+    paragraphs: [
+      "Utica's neighborhoods are full of two- and three-family homes built generations ago, and that age shows up in the walls: cracked plaster, layers of old repairs, and framing that isn't flat. We're comfortable working with it, whether that means skim-coating sound plaster back to smooth, converting rooms to drywall during renovations, or furring walls flat before new board goes up.",
+      "In New Hartford, Whitesboro, and Clinton, the work shifts toward suburban renovation: basement finishing, room conversions, and repair-and-repaint projects that bring a dated interior up to modern smooth-wall finishes.",
+      "For landlords and property managers, interior turnover work (patching, skim coats, and durable repaint-ready finishes between tenants) is a natural fit for the same crew doing full renovations nearby.",
+    ],
+    nearby: [
+      "New Hartford",
+      "Whitesboro",
+      "Yorkville",
+      "Clinton",
+      "Marcy",
+      "Oriskany",
+      "Frankfort",
+    ],
+    featuredServices: [
+      { slug: "taping-finishing", label: "Skim coats and plaster-smooth finishing in Utica" },
+      { slug: "residential-renovations", label: "Interior renovations in Utica and New Hartford" },
+      { slug: "repair-patching", label: "Drywall and ceiling repair in the Mohawk Valley" },
+    ],
+    schedulingNote:
+      "Utica is about an hour east of Syracuse, so we plan work there in efficient blocks. Bundling several small repairs into one visit gets you the best value at this edge of our service area.",
+  },
+  {
+    slug: "auburn-ny",
+    city: "Auburn",
+    headline: "Drywall Contractor in Auburn, NY",
+    metaTitle: "Drywall Contractor in Auburn, NY | YIN Construction",
+    metaDescription:
+      "Drywall installation, plaster repair, and renovations in Auburn, Skaneateles, and the Finger Lakes area. Free written estimates.",
+    intro:
+      "Auburn and the surrounding Finger Lakes towns bring us some of the most interesting older homes in Central New York.",
+    paragraphs: [
+      "Auburn's historic districts are lined with 19th-century homes where plaster walls, high ceilings, and original trim deserve a careful hand. We repair and skim-coat plaster where it's sound, replace it with drywall where it isn't, and keep new surfaces flush with the original woodwork either way.",
+      "Around Owasco and Skaneateles lakes, renovation work follows the seasons: finishing lower levels, converting porches to year-round rooms, and refreshing interiors between summers. Lake-adjacent properties also see more than their share of moisture-related ceiling and wall repairs.",
+      "Closer to the village centers of Weedsport, Union Springs, and Moravia, the mix is familiar: repairs, basement finishing, and repaint-ready surfaces for homes heading to market.",
+    ],
+    nearby: [
+      "Skaneateles",
+      "Weedsport",
+      "Union Springs",
+      "Owasco",
+      "Moravia",
+      "Port Byron",
+      "Cayuga",
+    ],
+    featuredServices: [
+      { slug: "repair-patching", label: "Plaster and drywall repair in Auburn" },
+      { slug: "taping-finishing", label: "Level 5 finishes for Finger Lakes homes" },
+      { slug: "residential-renovations", label: "Renovations in Auburn and Skaneateles" },
+    ],
+    schedulingNote:
+      "Auburn sits an easy half hour west of Syracuse, so estimates and projects schedule much like our home-base work. Lake-area projects book heaviest between fall and spring.",
+  },
+  {
+    slug: "rome-ny",
+    city: "Rome",
+    headline: "Drywall & Commercial Interior Contractor in Rome, NY",
+    metaTitle: "Drywall Contractor in Rome, NY | YIN Construction",
+    metaDescription:
+      "Drywall, metal stud framing, and interior work in Rome, NY, from home repairs to commercial fit-outs near Griffiss. Free written estimates.",
+    intro:
+      "Rome combines classic Central New York neighborhoods with one of the region's most active commercial redevelopment stories.",
+    paragraphs: [
+      "Rome's residential streets are largely post-war: homes with original plaster or early drywall that's ready for repairs, skim coats, and modernizing renovations. Basement finishing is a popular way to add space without an addition, and we take those projects from framing through paint.",
+      "On the commercial side, the Griffiss Business and Technology Park area and Rome's downtown corridor generate steady tenant-improvement work: metal stud framing, drywall, and acoustical ceilings built from drawings and coordinated with the other trades on site.",
+      "Between Rome and Oneida, village homes in Verona, Westmoreland, and Lee Center fit the same pattern we see across the region: bundled repairs, one-room renovations, and finish upgrades ahead of a sale.",
+    ],
+    nearby: [
+      "Lee Center",
+      "Westernville",
+      "Verona",
+      "Westmoreland",
+      "Oneida",
+      "Camden",
+    ],
+    featuredServices: [
+      { slug: "commercial-interiors", label: "Commercial interiors near Griffiss in Rome" },
+      { slug: "residential-renovations", label: "Basement finishing in Rome" },
+      { slug: "repair-patching", label: "Drywall repair in Rome and Oneida" },
+    ],
+    schedulingNote:
+      "Rome is under an hour from our Syracuse base. Commercial projects run on their own schedules; for residential work, grouping repairs into a single visit keeps costs down.",
+  },
+  {
+    slug: "cortland-ny",
+    city: "Cortland",
+    headline: "Drywall Contractor in Cortland, NY",
+    metaTitle: "Drywall Contractor in Cortland, NY | YIN Construction",
+    metaDescription:
+      "Drywall installation, repair, and rental turnover work in Cortland, Homer, and Tully. Durable finishes for homes and student rentals.",
+    intro:
+      "Cortland marks the southern end of our service area, where village homes, farmhouses, and a college rental market each ask for something different.",
+    paragraphs: [
+      "The older homes of Cortland and Homer villages carry the same plaster-era construction we work with across Central New York: walls worth skim-coating smooth, ceilings that need honest repair after winter, and trim lines that new drywall has to respect.",
+      "With SUNY Cortland in town, rental housing is a big part of the local market. Turnover work rewards durability: properly backed patches, scrubbable finish levels, and repairs done right once instead of patched every lease cycle. That's work we build around a landlord's calendar, not ours.",
+      "North toward Tully and Preble, newer homes bring basement finishing and bonus-room projects, and the half-hour run up Route 81 makes scheduling simple.",
+    ],
+    nearby: ["Homer", "McGraw", "Tully", "Preble", "Marathon", "Dryden"],
+    featuredServices: [
+      { slug: "repair-patching", label: "Rental turnover drywall repair in Cortland" },
+      { slug: "taping-finishing", label: "Durable finishes for Cortland rentals" },
+      { slug: "residential-renovations", label: "Basement finishing in Cortland and Tully" },
+    ],
+    schedulingNote:
+      "Cortland is roughly 35 minutes south of Syracuse on Route 81. Landlord and property-manager work can be scheduled around tenant turnover dates; just tell us your lease calendar.",
+  },
+  {
+    slug: "oswego-fulton-ny",
+    city: "Oswego & Fulton",
+    headline: "Drywall Contractor in Oswego & Fulton, NY",
+    metaTitle: "Drywall Contractor in Oswego & Fulton, NY | YIN Construction",
+    metaDescription:
+      "Drywall repair, installation, and renovations in Oswego and Fulton, NY. Snow-country ceiling repairs and lakeside renovation work.",
+    intro:
+      "Oswego County is true snow country, and the lake-effect winters off Lake Ontario shape the interior work its homes need.",
+    paragraphs: [
+      "No part of our service area is harder on ceilings than the Oswego snow belt. Ice dams, wind-driven leaks, and freeze-thaw cycles leave water-stained and sagging drywall behind every winter. Done right, those repairs start with a moisture check and end with texture matching that makes the damage disappear, not a coat of stain-blocker over a problem.",
+      "In the city of Oswego, the housing mix runs from historic homes near the river to rentals serving SUNY Oswego, where durable, repairable finishes matter more than delicate ones. Fulton's neighborhoods, and the villages of Phoenix, Mexico, and Central Square along the Route 481/81 corridors, bring steady repair, renovation, and basement-finishing work.",
+      "Lakeside and riverside properties also see seasonal conversion projects: three-season rooms and porches brought up to insulated, drywalled, year-round comfort.",
+    ],
+    nearby: [
+      "Minetto",
+      "Scriba",
+      "Hannibal",
+      "Phoenix",
+      "Mexico",
+      "Central Square",
+      "Volney",
+    ],
+    featuredServices: [
+      { slug: "repair-patching", label: "Ceiling and water-damage repair in Oswego County" },
+      { slug: "residential-renovations", label: "Renovations and conversions in Oswego and Fulton" },
+      { slug: "drywall-installation", label: "Drywall installation in Oswego and Fulton" },
+    ],
+    schedulingNote:
+      "Oswego and Fulton are 30-45 minutes north of Syracuse. Winter ceiling repairs are in highest demand after each thaw, so getting on the schedule early beats waiting for the drip to spread.",
+  },
 ];
 
 /* ------------------------------------------------------------------- values */

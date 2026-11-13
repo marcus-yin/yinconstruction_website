@@ -286,14 +286,19 @@ export default function HomePage() {
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {serviceAreas.map((area) => (
-                <li key={area.name} className="flex items-center gap-2 text-steel-800">
-                  <MapPin aria-hidden="true" className="h-4 w-4 shrink-0 text-navy-700" />
-                  {area.name}
+                <li key={area.name}>
+                  <Link
+                    href={`/service-areas/${area.citySlug}/`}
+                    className="flex items-center gap-2 text-steel-800 hover:text-navy-700 hover:underline"
+                  >
+                    <MapPin aria-hidden="true" className="h-4 w-4 shrink-0 text-navy-700" />
+                    {area.name}
+                  </Link>
                 </li>
               ))}
             </ul>
             <p className="mt-4 text-sm text-steel-500">
-              Outside these areas? <Link href="/contact/" className="font-semibold text-navy-700 underline">Ask us</Link>. We regularly travel for the right project.
+              See all <Link href="/service-areas/" className="font-semibold text-navy-700 underline">service areas</Link>, or if you&apos;re outside them, <Link href="/contact/" className="font-semibold text-navy-700 underline">ask us</Link> — we regularly travel for the right project.
             </p>
           </div>
           <ServiceAreaMap className="mx-auto w-full max-w-md" />

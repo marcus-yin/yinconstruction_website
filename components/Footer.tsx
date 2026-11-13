@@ -1,11 +1,17 @@
 import Link from "next/link";
-import { visibleNavLinks as navLinks, services, company, pathways } from "@/content/site";
+import {
+  visibleNavLinks as navLinks,
+  services,
+  company,
+  pathways,
+  cityPages,
+} from "@/content/site";
 
 export default function Footer() {
   return (
     <footer className="bg-navy-900 text-navy-100">
       <div className="mx-auto max-w-7xl px-4 pb-24 pt-12 sm:px-6 lg:px-8 lg:pb-12">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           <div>
             <p className="font-heading text-lg font-bold text-white">{company.name}</p>
             <p className="mt-2 text-sm leading-relaxed">{company.serviceAreaStatement}</p>
@@ -51,6 +57,32 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="Footer service areas">
+            <p className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
+              Service Areas
+            </p>
+            <ul className="mt-3 space-y-2">
+              {cityPages.map((city) => (
+                <li key={city.slug}>
+                  <Link
+                    href={`/service-areas/${city.slug}/`}
+                    className="text-sm hover:text-white hover:underline"
+                  >
+                    {city.city}, NY
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/service-areas/"
+                  className="text-sm font-semibold hover:text-white hover:underline"
+                >
+                  All service areas
+                </Link>
+              </li>
             </ul>
           </nav>
 

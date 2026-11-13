@@ -1,5 +1,11 @@
 import type { MetadataRoute } from "next";
-import { visibleNavLinks as navLinks, company, services, pathways } from "@/content/site";
+import {
+  visibleNavLinks as navLinks,
+  company,
+  services,
+  pathways,
+  cityPages,
+} from "@/content/site";
 
 export const dynamic = "force-static";
 
@@ -27,5 +33,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...pageRoutes, ...pathwayRoutes, ...serviceRoutes];
+  const areaRoutes = [
+    {
+      url: `${company.url}/service-areas/`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
+    ...cityPages.map((city) => ({
+      url: `${company.url}/service-areas/${city.slug}/`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
+
+  return [...pageRoutes, ...pathwayRoutes, ...serviceRoutes, ...areaRoutes];
 }
