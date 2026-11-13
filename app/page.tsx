@@ -25,6 +25,7 @@ import {
   serviceAreas,
   visibleProjects,
   projectsCapabilities,
+  applyPage,
 } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -343,6 +344,32 @@ export default function HomePage() {
 
       {/* ----------------------------------------------------- Testimonials */}
       <Testimonials />
+
+      {/* ----------------------------------------------------- We're Hiring */}
+      <section aria-labelledby="hiring-heading" className="bg-accent-600">
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div className="flex items-start gap-4">
+            <HardHat aria-hidden="true" className="mt-1 h-8 w-8 shrink-0 text-white" />
+            <div>
+              <h2
+                id="hiring-heading"
+                className="font-heading text-2xl font-bold tracking-tight text-white"
+              >
+                {applyPage.hiringBanner.heading}
+              </h2>
+              <p className="mt-1 max-w-2xl text-accent-100">
+                {applyPage.hiringBanner.body}
+              </p>
+            </div>
+          </div>
+          <Link
+            href={applyPage.hiringBanner.cta.href}
+            className="shrink-0 rounded-md bg-white px-6 py-3 font-heading text-base font-semibold text-accent-700 transition-colors hover:bg-accent-100"
+          >
+            {applyPage.hiringBanner.cta.label}
+          </Link>
+        </div>
+      </section>
 
       {/* ------------------------------------------------------- Closing CTA */}
       <QuoteCTA />

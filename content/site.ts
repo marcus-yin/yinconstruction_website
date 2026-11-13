@@ -71,9 +71,7 @@ export const navLinks: NavLink[] = [
   { href: "/about/", label: "About" },
   { href: "/certifications/", label: "Certifications", hidden: true },
   { href: "/contact/", label: "Contact" },
-  // Draft page - remove `hidden: true` when ready to link it publicly.
-  // The page is live at /apply/ either way.
-  { href: "/apply/", label: "Apply", hidden: true },
+  { href: "/apply/", label: "Apply" },
 ];
 
 /** Navigation links currently shown in the header, footer, and sitemap. */
@@ -731,10 +729,14 @@ export const customerTypes = [
 export type CustomerType = (typeof customerTypes)[number];
 
 /* --------------------------------------------------------------- apply page */
-// DRAFT starting point - edit freely. The page lives at /apply/ and is
-// hidden from navigation until you remove `hidden: true` on its nav link.
 
 export const applyPage = {
+  /** "We're Hiring" band on the homepage, linking to /apply/. */
+  hiringBanner: {
+    heading: "We're Hiring",
+    body: "Drywall hangers, tapers, painters, and helpers willing to learn: we want to hear from you.",
+    cta: { label: "Apply Now", href: "/apply/" },
+  },
   title: "Work With Us",
   intro:
     "We're a small, accountable crew doing drywall and interior construction across Central New York, and we're always interested in hearing from skilled tradespeople who take pride in their finish work.",
