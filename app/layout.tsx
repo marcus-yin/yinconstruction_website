@@ -27,12 +27,30 @@ export const metadata: Metadata = {
     siteName: company.name,
     title: seo.defaultTitle,
     description: seo.defaultDescription,
+    url: "/",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${company.name}: ${company.tagline}`,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: seo.defaultTitle,
     description: seo.defaultDescription,
+    images: ["/og-image.png"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
   robots: {
     index: true,
     follow: true,
