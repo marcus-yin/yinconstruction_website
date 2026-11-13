@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { services, company, customerTypes } from "@/content/site";
 import { submitToBackend } from "@/lib/form-backend";
+import { trackEvent } from "@/lib/analytics";
 import {
   buildMailtoUrl,
   formatQuoteMessage,
@@ -120,6 +121,7 @@ export default function ContactForm() {
         ...data,
       });
       if (delivered) {
+        trackEvent("quote_form_submit", { method: "backend" });
         setResult({ kind: "sent" });
         return;
       }
@@ -132,6 +134,7 @@ export default function ContactForm() {
     // Fallback: open the visitor's email app pre-filled.
     const message = formatQuoteMessage(data);
     if (isEmailConfigured()) {
+      trackEvent("quote_form_submit", { method: "mailto" });
       window.location.href = buildMailtoUrl(data);
       setResult({ kind: "mailto-opened", message });
     } else {

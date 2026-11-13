@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { company, applyPage } from "@/content/site";
 import { isEmailConfigured } from "@/lib/quote-request";
 import { submitToBackend } from "@/lib/form-backend";
+import { trackEvent } from "@/lib/analytics";
 import {
   buildApplicationMailtoUrl,
   formatApplicationMessage,
@@ -122,6 +123,7 @@ export default function ApplyForm() {
         resume,
       });
       if (delivered) {
+        trackEvent("application_form_submit", { method: "backend" });
         setResult({ kind: "sent", resumeAttached: hasResume });
         return;
       }
@@ -135,6 +137,7 @@ export default function ApplyForm() {
     // attached by hand there - mailto links can't carry files).
     const message = formatApplicationMessage(data);
     if (isEmailConfigured()) {
+      trackEvent("application_form_submit", { method: "mailto" });
       window.location.href = buildApplicationMailtoUrl(data);
       setResult({ kind: "mailto-opened", message, resumeFileName });
     } else {
