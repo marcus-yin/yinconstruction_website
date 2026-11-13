@@ -29,7 +29,7 @@ verified value from the business owner.
 | `{{TODO: years in business}}` | Used in the hero intro sentence and the stats band |
 | `{{TODO: projects completed}}` | Stats band — set `value` to a number in `stats` to enable the animated counter |
 | `{{TODO: total sq ft finished}}` | Stats band counter |
-| `{{TODO: service radius in miles}}` | Stats band + "Where We Work" sentence |
+| `{{TODO: service radius in miles}}` | Stats band (hidden); the "Where We Work" sentence mention is removed for now — restore note is in `app/page.tsx` |
 | `{{TODO: license/registration details}}` | Trust strip note next to "Licensed & Insured" |
 
 > Stats note: each stat in `content/site.ts` has `value: null` plus a token.
