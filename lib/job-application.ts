@@ -16,8 +16,13 @@ export type JobApplication = {
   phone: string;
   position: string;
   experience: string;
+  /** Expected hourly wage - free text, e.g. "$25/hr" or "negotiable". */
+  wage: string;
   town: string;
   about: string;
+  /** Name of the resume file the applicant selected (not uploaded - the
+   * applicant attaches it to the email themselves). Empty if none. */
+  resumeFileName: string;
   preferredContact: string;
 };
 
@@ -30,13 +35,16 @@ export function formatApplicationMessage(data: JobApplication): string {
     `Phone: ${data.phone}`,
     `Position: ${data.position}`,
     `Experience: ${data.experience}`,
+    `Expected hourly wage: ${data.wage || "Not provided"}`,
     `Location: ${data.town || "Not provided"}`,
     `Preferred contact method: ${data.preferredContact}`,
     "",
     "About / experience:",
     data.about,
     "",
-    "(If you have a resume, please attach it to this email before sending.)",
+    data.resumeFileName
+      ? `Resume: ${data.resumeFileName} - PLEASE ATTACH this file to this email before sending.`
+      : "(If you have a resume, please attach it to this email before sending.)",
   ].join("\n");
 }
 

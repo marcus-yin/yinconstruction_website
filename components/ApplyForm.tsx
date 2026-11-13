@@ -21,7 +21,7 @@ export default function ApplyForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [result, setResult] = useState<
     | { kind: "idle" }
-    | { kind: "mailto-opened"; message: string }
+    | { kind: "mailto-opened"; message: string; resumeFileName: string }
     | { kind: "not-connected"; message: string }
   >({ kind: "idle" });
   const [copied, setCopied] = useState(false);
@@ -65,14 +65,22 @@ export default function ApplyForm() {
     // Honeypot: real visitors never see or fill this field.
     if (String(formData.get("website") ?? "").length > 0) return;
 
+    // The resume file is never uploaded (no backend). We record its name so
+    // the composed email reminds the applicant to attach it themselves.
+    const resumeFile = formData.get("resume");
+    const resumeFileName =
+      resumeFile instanceof File && resumeFile.size > 0 ? resumeFile.name : "";
+
     const data: JobApplication = {
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
       phone: String(formData.get("phone") ?? ""),
       position: String(formData.get("position") ?? ""),
       experience: String(formData.get("experience") ?? ""),
+      wage: String(formData.get("wage") ?? ""),
       town: String(formData.get("town") ?? ""),
       about: String(formData.get("about") ?? ""),
+      resumeFileName,
       preferredContact: String(formData.get("preferredContact") ?? ""),
     };
 
@@ -89,7 +97,7 @@ export default function ApplyForm() {
     if (isEmailConfigured()) {
       // Genuine delivery path: opens the applicant's email app pre-filled.
       window.location.href = buildApplicationMailtoUrl(data);
-      setResult({ kind: "mailto-opened", message });
+      setResult({ kind: "mailto-opened", message, resumeFileName });
     } else {
       // Honest fallback: no backend and no business email configured yet.
       setResult({ kind: "not-connected", message });
@@ -116,9 +124,17 @@ export default function ApplyForm() {
             <p className="mt-2 text-steel-700">
               Your email app should have opened with your application
               pre-filled. Your application is <strong>not sent</strong> until
-              you send that email, and you can attach your resume to it before
-              sending. If it didn&apos;t open, copy the message below and email
-              it to{" "}
+              you send that email.{" "}
+              {result.resumeFileName ? (
+                <>
+                  Your resume (<strong>{result.resumeFileName}</strong>) is{" "}
+                  <strong>not attached automatically</strong>: please attach
+                  the file to the email before sending.
+                </>
+              ) : (
+                <>You can attach your resume to it before sending.</>
+              )}{" "}
+              If it didn&apos;t open, copy the message below and email it to{" "}
               <a
                 href={`mailto:${company.email}`}
                 className="font-semibold text-navy-700 underline"
@@ -319,6 +335,38 @@ export default function ApplyForm() {
           </select>
           {fieldError("experience", "experience-error")}
         </div>
+
+        <div>
+          <label htmlFor="wage" className="block text-sm font-semibold text-navy-900">
+            Expected hourly wage
+          </label>
+          <input
+            id="wage"
+            name="wage"
+            type="text"
+            inputMode="decimal"
+            placeholder="e.g. $25/hr or negotiable"
+            className={inputClass}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="resume" className="block text-sm font-semibold text-navy-900">
+            Resume
+          </label>
+          <input
+            id="resume"
+            name="resume"
+            type="file"
+            accept=".pdf,.doc,.docx"
+            aria-describedby="resume-hint"
+            className="mt-2 block w-full text-sm text-steel-700 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-navy-700 file:px-4 file:py-2.5 file:font-heading file:text-sm file:font-semibold file:text-white hover:file:bg-navy-800"
+          />
+          <p id="resume-hint" className="mt-1.5 text-sm text-steel-500">
+            PDF or Word. You&apos;ll attach it yourself to the email this form
+            opens; nothing is uploaded here.
+          </p>
+        </div>
       </div>
 
       <div>
@@ -337,8 +385,7 @@ export default function ApplyForm() {
         />
         <p id="about-hint" className="mt-1.5 text-sm text-steel-500">
           The work you&apos;ve done, tools and finishes you know, and anything
-          else we should know. Have a resume? You&apos;ll be able to attach it
-          to the email this form opens.
+          else we should know.
         </p>
         {fieldError("about", "about-error")}
       </div>
