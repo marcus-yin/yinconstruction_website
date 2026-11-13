@@ -148,6 +148,8 @@ export type Service = {
   paragraphs: string[];
   included: string[];
   idealFor: string[];
+  /** Service-specific FAQs, shown on the detail page with FAQPage schema. */
+  faqs: { question: string; answer: string }[];
 };
 
 export const services: Service[] = [
@@ -177,6 +179,33 @@ export const services: Service[] = [
       "Garage and basement board-outs",
       "Fire-rated assemblies and party walls",
     ],
+    faqs: [
+      {
+        question: "How long does drywall installation take?",
+        answer:
+          "Hanging goes quickly: an average room is typically boarded in about a day, and a whole house takes days rather than weeks. Taping and finishing add drying time between coats, so your written estimate includes a schedule for the complete scope, not just the hang.",
+      },
+      {
+        question: "What type of drywall should go in a bathroom or garage?",
+        answer:
+          "Moisture-resistant board belongs in bathrooms and laundry areas, and garages or walls shared with living space often require fire-rated board by code. We spec the right product room by room as part of the estimate, so you're never paying for upgrades you don't need or missing ones you do.",
+      },
+      {
+        question: "Do you handle just hanging, or taping and finishing too?",
+        answer:
+          "Either. Most of our work is hang-and-finish under one crew, which is how you get the straightest walls. But we also take over finishing on board hung by others, and on larger builds we can hang for your own finisher.",
+      },
+      {
+        question: "Can new drywall match the thicker walls in my older home?",
+        answer:
+          "Yes. Many older Central New York homes have plaster walls thicker than modern half-inch board. We shim the framing, use five-eighths board, or build out the surface so new drywall lands flush with the existing walls and trim.",
+      },
+      {
+        question: "Do I need a permit to install drywall?",
+        answer:
+          "Drywall replacement alone rarely requires a permit, but the work behind it (new framing, electrical, or structural changes) often does. If your project involves new walls, we flag what should be confirmed with your local building department before work starts.",
+      },
+    ],
   },
   {
     slug: "taping-finishing",
@@ -204,6 +233,33 @@ export const services: Service[] = [
       "High-end finishes under critical lighting",
       "Skim-coating over dated texture",
     ],
+    faqs: [
+      {
+        question: "What finish level does my project need?",
+        answer:
+          "Level 4 is the standard for most living spaces receiving flat or low-sheen paint. Go to Level 5 (a full skim coat) where walls get strong natural light, wall-grazing fixtures, or gloss paint, because those conditions make joints and fasteners \"photograph\" through lesser finishes. Garages and utility areas can often stop at fire-tape or Level 2.",
+      },
+      {
+        question: "How long does taping and finishing take?",
+        answer:
+          "Longer than hanging, because each coat has to dry before the next. A typical room takes several visits across consecutive days: tape and bed, second coat, third coat, then sanding. Rushing drying times causes cracks and shrinkage, so we don't.",
+      },
+      {
+        question: "Can you skim coat over old texture or plaster?",
+        answer:
+          "Yes. A Level 5 skim coat over sound textured walls or aged plaster is one of the most cost-effective ways to modernize a room. We check adhesion first, repair loose areas, and skim to a smooth paint-ready surface.",
+      },
+      {
+        question: "How do you control sanding dust?",
+        answer:
+          "We sand with vacuum-assisted dust-control equipment, seal doorways, and protect floors and returns. There's no such thing as a dust-free drywall job, but containment is part of our standard scope, not an upsell.",
+      },
+      {
+        question: "Why do drywall joints show through paint?",
+        answer:
+          "That's called joint banding or photographing: the paper, compound, and board absorb paint differently, and light exposes the difference. The fix is the right finish level for the lighting conditions plus a proper primer, which is exactly what we quote for each room.",
+      },
+    ],
   },
   {
     slug: "repair-patching",
@@ -229,6 +285,33 @@ export const services: Service[] = [
       "Home sale punch lists",
       "Water or impact damage",
       "Settling cracks and nail pops",
+    ],
+    faqs: [
+      {
+        question: "Can a water-damaged ceiling be patched, or does it need replacement?",
+        answer:
+          "It depends on what the moisture did. Stained but sound board can often be sealed and refinished; sagging, soft, or moldy board gets cut back to clean material and replaced. We check moisture levels before patching so you're not painting over a problem that will return.",
+      },
+      {
+        question: "Can you match my existing wall texture?",
+        answer:
+          "Yes: smooth, knockdown, and orange peel are all matchable. Texture matching is the difference between a repair you can find and one you can't, so we blend the new texture past the patch edges until the wall reads as one surface.",
+      },
+      {
+        question: "Is a small hole worth a contractor visit?",
+        answer:
+          "Often several small repairs make one sensible visit: doorknob holes, settling cracks, nail pops, and corner dings across the house. Home-sale punch lists are a common version of this, where one trip makes every wall inspection-ready.",
+      },
+      {
+        question: "Will I be able to see the patch after painting?",
+        answer:
+          "Not if the repair is done right. That means backing the patch properly, feathering compound well beyond the hole, matching texture, and priming the repair before paint so the sheen is uniform across the wall.",
+      },
+      {
+        question: "Do you also paint the repaired area?",
+        answer:
+          "We leave every repair paint-ready, and through our painting service we can also prime and paint the wall so the repair disappears completely. Whole-wall repaints hide better than spot touch-ups on aged paint.",
+      },
     ],
   },
   {
@@ -257,6 +340,33 @@ export const services: Service[] = [
       "Retail and restaurant build-outs",
       "Property managers refreshing commercial space",
     ],
+    faqs: [
+      {
+        question: "Do you bid from architectural drawings?",
+        answer:
+          "Yes. Send plan sets and specs and we'll return a written scope with inclusions and exclusions stated plainly, so bid leveling is easy. We're comfortable with partition types, rated assemblies, and reflected ceiling plans.",
+      },
+      {
+        question: "Can you work in an occupied building?",
+        answer:
+          "Yes. We phase work, contain dust, and coordinate noisy tasks with building management so tenants and staff can keep operating. Night and weekend phasing can be built into the schedule where the project requires it.",
+      },
+      {
+        question: "Do you build fire-rated and sound-rated assemblies?",
+        answer:
+          "Yes. We frame and board UL-rated partitions to the listed assembly, including staggered-stud and double-layer configurations, insulation placement, and proper sealing, and we document what was built for your close-out.",
+      },
+      {
+        question: "Do you install acoustical (drop) ceilings?",
+        answer:
+          "Yes: suspended grid and tile is part of our standard commercial package, laid out from the reflected ceiling plan and coordinated with lighting, HVAC diffusers, and sprinklers.",
+      },
+      {
+        question: "How do you keep interior work on the construction schedule?",
+        answer:
+          "Framing, board, finish, and ceilings are sequenced trades, and delays compound. We stage material ahead of mobilization, staff to the milestone dates in your schedule, and flag conflicts with other trades early rather than the week they bite.",
+      },
+    ],
   },
   {
     slug: "residential-renovations",
@@ -284,6 +394,33 @@ export const services: Service[] = [
       "Room conversions and layout changes",
       "Finishing bonus rooms and attics",
     ],
+    faqs: [
+      {
+        question: "How much does it cost to finish a basement?",
+        answer:
+          "It depends on size, ceiling choices, and how finished you want it, so we don't quote blind. What we do promise: a free site visit and a written line-item estimate, so you can see exactly where the money goes and trim scope to fit a budget.",
+      },
+      {
+        question: "Do I need an egress window to finish my basement?",
+        answer:
+          "If the finished space includes a bedroom, code requires an egress path, usually an egress window or door. Family rooms and offices have different requirements. We plan the layout around what your local code official will look for, before drywall goes up.",
+      },
+      {
+        question: "How long does basement finishing take?",
+        answer:
+          "Typically weeks, not days: framing, inspections, board, finishing with drying time, and paint each take their turn. Your written estimate includes a realistic project duration for the scope you choose.",
+      },
+      {
+        question: "What about moisture in the basement?",
+        answer:
+          "Water wins against drywall every time, so moisture problems get solved before finishing starts. We look for signs of water during the site visit and will tell you plainly if waterproofing or drainage work should come first.",
+      },
+      {
+        question: "Do you handle the whole basement project?",
+        answer:
+          "We take the interior from bare studs to painted walls: framing, drywall, ceilings, and finish work. Electrical and plumbing are performed by licensed trades, and we coordinate the schedule so inspections and cover-up happen in the right order.",
+      },
+    ],
   },
   {
     slug: "painting-finish",
@@ -310,6 +447,33 @@ export const services: Service[] = [
       "Newly finished drywall",
       "Repaints after repairs",
       "Whole-space refreshes during renovations",
+    ],
+    faqs: [
+      {
+        question: "Why does new drywall need primer before paint?",
+        answer:
+          "Bare compound and paper absorb paint at different rates, which shows as flashing and banding under light. A dedicated new-drywall primer equalizes the surface so finish coats lay down uniformly. Skipping it is the most common reason new walls look blotchy.",
+      },
+      {
+        question: "What paint sheen should I use in each room?",
+        answer:
+          "As a rule: flat on ceilings, matte or eggshell in living spaces, and a scrubbable satin or semi-gloss in kitchens, baths, and high-traffic hallways. Higher sheen shows more surface imperfection, which is why sheen and finish level get chosen together.",
+      },
+      {
+        question: "Do you paint rooms you didn't drywall?",
+        answer:
+          "Our painting service exists to finish our own drywall work to one standard, and that's where it shines. For repaint-only projects, ask: if the scope fits our schedule we'll quote it honestly or tell you it's a better fit for a dedicated painter.",
+      },
+      {
+        question: "How soon after finishing can walls be painted?",
+        answer:
+          "Once the final coat of compound is fully dry, sanded, and dusted off, priming can start, usually the next working day. Humidity slows drying, so basements and new construction sometimes need longer.",
+      },
+      {
+        question: "Do you help choose colors?",
+        answer:
+          "We'll give practical input on your selections (how a sheen behaves on your walls, where an accent wall will or won't work) but color choices stay yours. Bring us swatches and we'll tell you what they'll look like under your lighting.",
+      },
     ],
   },
 ];

@@ -14,7 +14,8 @@ import {
   finishLevels,
   hero,
 } from "@/content/site";
-import { serviceSchema } from "@/lib/schema";
+import { faqSchema, serviceSchema } from "@/lib/schema";
+import Accordion from "@/components/ui/Accordion";
 
 type Params = { slug: string };
 
@@ -56,8 +57,9 @@ export default async function ServiceDetailPage({
   const otherServices = services.filter((s) => s.slug !== service.slug);
   const areaList = serviceAreas.map((a) => a.name).join(", ");
 
-  // Service structured data - only facts already stated on the page.
+  // Structured data - only facts already stated on the page.
   const schema = serviceSchema(service);
+  const faqJson = faqSchema(service.faqs);
 
   return (
     <>
@@ -163,6 +165,19 @@ export default async function ServiceDetailPage({
           </div>
         </div>
 
+        {/* Service FAQs */}
+        <section aria-labelledby="service-faq-heading" className="mt-16 border-t border-steel-200 pt-10">
+          <h2
+            id="service-faq-heading"
+            className="font-heading text-xl font-bold tracking-tight text-navy-900"
+          >
+            {service.title.split(" (")[0]} FAQs
+          </h2>
+          <div className="mt-5 max-w-3xl">
+            <Accordion items={service.faqs} idPrefix="service-faq" />
+          </div>
+        </section>
+
         {/* Related services - internal linking */}
         <section aria-labelledby="related-heading" className="mt-16 border-t border-steel-200 pt-10">
           <h2
@@ -197,6 +212,12 @@ export default async function ServiceDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      {faqJson && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJson) }}
+        />
+      )}
     </>
   );
 }
