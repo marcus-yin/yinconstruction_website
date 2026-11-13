@@ -480,8 +480,10 @@ export const processSteps: ProcessStep[] = [
     description: "We inspect together under raking light and list anything to correct.",
   },
   {
-    title: "Final sign-off & warranty",
-    description: "You sign off when it's right. Work is backed by our warranty: {{TODO: warranty terms}}.",
+    // When warranty terms are available, retitle to "Final sign-off & warranty"
+    // and append: "Work is backed by our warranty: ..."
+    title: "Final sign-off",
+    description: "You sign off when it's right.",
   },
 ];
 

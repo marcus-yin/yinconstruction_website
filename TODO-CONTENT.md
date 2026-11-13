@@ -40,7 +40,7 @@ verified value from the business owner.
 
 | Token | What's needed |
 | --- | --- |
-| `{{TODO: warranty terms}}` | Referenced in the process timeline step 6 (also shown on Home) |
+| Warranty terms | Hidden for now — process timeline step 6 (Home + Services) says only "You sign off when it's right."; add the warranty sentence back in `processSteps` when terms are available |
 
 ## Projects page
 
