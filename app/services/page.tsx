@@ -6,11 +6,11 @@ import ServiceIcon from "@/components/graphics/ServiceIcon";
 import { company, services } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Services",
-  description: `${company.name} services: ${services
-    .map((s) => s.title.split(" (")[0])
-    .join(", ")}. Serving Syracuse and Central New York with free written estimates.`,
+  title: "Drywall Services in Syracuse, NY",
+  description:
+    "Drywall installation, taping & finishing, repair, commercial interiors, basement finishing, and painting in Syracuse, NY. Free written estimates.",
   alternates: { canonical: "/services/" },
+  openGraph: { url: "/services/" },
 };
 
 export default function ServicesPage() {

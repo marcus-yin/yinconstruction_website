@@ -5,9 +5,10 @@ import ApplyForm from "@/components/ApplyForm";
 import { company, applyPage } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Apply: Join Our Crew",
-  description: `Apply to work with ${company.name}, a drywall and interior construction contractor in Central New York. Tell us about your trade experience and we'll follow up.`,
+  title: "Drywall & Construction Jobs in Syracuse, NY",
+  description: `Apply to work with ${company.name}, a drywall and interior construction contractor in Syracuse, NY. Tell us about your trade experience.`,
   alternates: { canonical: "/apply/" },
+  openGraph: { url: "/apply/" },
 };
 
 export default function ApplyPage() {

@@ -7,9 +7,10 @@ import Accordion from "@/components/ui/Accordion";
 import { company, faqs } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact: Request an Estimate or Subcontractor Bid",
-  description: `Request a free estimate or subcontractor bid from ${company.name}. ${company.serviceAreaStatement}. Free written estimates for residential and commercial work.`,
+  title: "Free Drywall Estimates in Syracuse, NY",
+  description: `Request a free drywall estimate or subcontractor bid from ${company.name} in Syracuse, NY. Written estimates for residential and commercial work.`,
   alternates: { canonical: "/contact/" },
+  openGraph: { url: "/contact/" },
 };
 
 export default function ContactPage() {

@@ -31,12 +31,13 @@ export async function generateMetadata({
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
   return {
-    title: `${service.title} | Syracuse & Central New York`,
-    description: service.short,
+    title: { absolute: service.metaTitle },
+    description: service.metaDescription,
     alternates: { canonical: `/services/${service.slug}/` },
     openGraph: {
-      title: `${service.title} | ${company.name}`,
-      description: service.short,
+      title: service.metaTitle,
+      description: service.metaDescription,
+      url: `/services/${service.slug}/`,
     },
   };
 }

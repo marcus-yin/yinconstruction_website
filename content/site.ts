@@ -103,8 +103,12 @@ export type Service = {
   title: string;
   /** Icon key understood by components/graphics/ServiceIcon.tsx */
   icon: "drywall-sheet" | "taping-knife" | "patch" | "commercial" | "renovation" | "paint-roller";
-  /** One-liner for cards and meta descriptions */
+  /** One-liner for cards */
   short: string;
+  /** SEO: full <title> ("keyword in Syracuse, NY | YIN Construction", <=64 chars) */
+  metaTitle: string;
+  /** SEO: meta description (<=155 chars) */
+  metaDescription: string;
   /** 2–3 paragraphs of body copy for the Services page */
   paragraphs: string[];
   included: string[];
@@ -118,6 +122,9 @@ export const services: Service[] = [
     icon: "drywall-sheet",
     short:
       "Precise board hanging for new builds, additions, and remodels: square, plumb, and ready for a flawless finish.",
+    metaTitle: "Drywall Installation in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Professional drywall installation in Syracuse and Central New York: new builds, additions, and remodels, hung square and plumb. Free written estimates.",
     paragraphs: [
       "Good drywall starts long before the first sheet goes up. We check framing for straightness, plan board layout to minimize butt joints, and stage material so your space stays workable. The result is a substrate that finishes faster and looks better for the life of the building.",
       "We hang standard, moisture-resistant, mold-resistant, and fire-rated board, matching the right product to each room. Bathrooms, garages, party walls, and mechanical spaces all have different requirements. Ceilings, curves, and high walls are all in a day's work.",
@@ -142,6 +149,9 @@ export const services: Service[] = [
     icon: "taping-knife",
     short:
       "Smooth, consistent finishing to the industry-standard levels, from fire-tape to Level 5 skim coats for critical light.",
+    metaTitle: "Drywall Taping & Finishing in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Drywall taping and finishing in Syracuse, NY to industry-standard Levels 0-5, including Level 5 skim coats for critical light. Dust-controlled sanding.",
     paragraphs: [
       "Finishing is where drywall work succeeds or fails. We tape and finish to the industry-standard levels (0 through 5), so you get exactly the surface your space needs, no more and no less, and you know precisely what you're paying for.",
       "Most living spaces call for a Level 4 finish, ready for flat or low-sheen paint. For walls washed in natural light, hallways with wall grazing fixtures, or anywhere gloss paint is planned, we recommend a Level 5 skim coat that eliminates photographing of joints and fasteners.",
@@ -166,6 +176,9 @@ export const services: Service[] = [
     icon: "patch",
     short:
       "Seamless repairs for holes, cracks, and water damage, with texture matching so the patch disappears.",
+    metaTitle: "Drywall Repair in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Drywall repair and patching in Syracuse and Central New York: holes, cracks, water damage, and texture matching that makes the patch disappear.",
     paragraphs: [
       "From doorknob holes to ceiling water damage, we make drywall repairs that blend in completely. A proper repair isn't just filling a hole. It's cutting back to sound material, backing the patch correctly, and building the finish out wide enough that the wall reads as one surface.",
       "Water-damaged drywall needs special attention: we check for hidden moisture and replace compromised board rather than coating over a problem that will come back.",
@@ -189,6 +202,9 @@ export const services: Service[] = [
     icon: "commercial",
     short:
       "Metal stud framing, drywall, and acoustical ceilings for offices, retail, and medical fit-outs, built to schedule.",
+    metaTitle: "Commercial Drywall Contractor in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Commercial drywall contractor for Central New York: metal stud framing, drywall, and acoustical ceilings for tenant improvements and office fit-outs.",
     paragraphs: [
       "Commercial interiors run on schedules, and we build to them. We provide metal stud framing, drywall, and acoustical ceiling tile (ACT) systems for tenant improvements, office fit-outs, retail spaces, and light medical work across Central New York.",
       "Our crews are comfortable working from architectural drawings, coordinating with electrical, mechanical, and sprinkler trades, and phasing work in occupied buildings with minimal disruption to your tenants or staff.",
@@ -213,6 +229,9 @@ export const services: Service[] = [
     icon: "renovation",
     short:
       "Turn unfinished space into living space: framing, drywall, ceilings, and finish work under one roof.",
+    metaTitle: "Basement Finishing in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Basement finishing and interior renovations in Syracuse, NY: framing, drywall, ceilings, and paint under one roof. Free written estimates.",
     paragraphs: [
       "A basement is the least expensive square footage you'll ever add to your home. It's already built; it just needs finishing. We handle the full interior package: framing, insulation coordination, drywall, ceilings, and final paint.",
       "Beyond basements, we take on interior renovations where walls move, ceilings change, or spaces open up: bedroom conversions, home offices, and layout changes that modernize older Central New York homes.",
@@ -237,6 +256,9 @@ export const services: Service[] = [
     icon: "paint-roller",
     short:
       "Prime and paint by the same crew that finished the walls. One contractor, one standard, zero finger-pointing.",
+    metaTitle: "Painting & Finish Work in Syracuse, NY | YIN Construction",
+    metaDescription:
+      "Interior painting and final finish in Syracuse, NY by the crew that finished your drywall: priming, walls, ceilings, and trim with one quality standard.",
     paragraphs: [
       "The best time to paint a wall is right after the people who finished it sign off on it. We prime and paint the surfaces we install, so there's one standard of quality from bare stud to final coat, and no gap between trades where defects hide.",
       "We spec the right primer for fresh drywall, back-roll for uniform texture, and apply finish coats suited to each room: scrubbable finishes for hallways and kids' rooms, moisture-resistant paint in baths, and flat ceilings that hide everything.",
@@ -778,9 +800,9 @@ export const applyPage = {
 /* ---------------------------------------------------------------------- SEO */
 
 export const seo = {
-  defaultTitle: `${company.name} | ${company.tagline}`,
-  defaultDescription: `${company.name} provides ${services
-    .map((s) => s.title.toLowerCase().split(" (")[0])
-    .slice(0, 4)
-    .join(", ")}, and more across Central New York. Free estimates.`,
+  /** Home page + default <title>: primary keyword + location + brand. */
+  defaultTitle: "Drywall & Interior Contractor in Syracuse, NY | YIN Construction",
+  /** Home page + default meta description (<=155 chars). */
+  defaultDescription:
+    "Drywall installation, taping & finishing, repairs, commercial interiors, and basement finishing across Syracuse and Central New York. Free estimates.",
 };

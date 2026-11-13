@@ -7,9 +7,10 @@ import ServiceAreaMap from "@/components/graphics/ServiceAreaMap";
 import { company, about, values, teamMembers } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: `About ${company.name}: a drywall and interior construction contractor based in Central New York. Our story, mission, values, and commitment to safety.`,
+  title: "About Our Syracuse, NY Drywall Company",
+  description: `About ${company.name}: a drywall and interior construction contractor in Syracuse, NY. Our story, values, safety practices, and local commitment.`,
   alternates: { canonical: "/about/" },
+  openGraph: { url: "/about/" },
 };
 
 const VALUE_ICONS = {

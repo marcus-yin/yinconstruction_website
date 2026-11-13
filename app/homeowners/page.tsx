@@ -5,9 +5,11 @@ import { company, pathways } from "@/content/site";
 const pathway = pathways.find((p) => p.slug === "homeowners")!;
 
 export const metadata: Metadata = {
-  title: "For Homeowners: Drywall & Interior Work",
-  description: `Residential drywall installation, repair, basement finishing, renovations, and painting from ${company.name}, with free written estimates across Syracuse and Central New York.`,
+  title: "Residential Drywall in Syracuse, NY",
+  description:
+    "Residential drywall installation, repair, basement finishing, and painting in Syracuse and Central New York, with free written estimates.",
   alternates: { canonical: "/homeowners/" },
+  openGraph: { url: "/homeowners/" },
 };
 
 export default function HomeownersPage() {
