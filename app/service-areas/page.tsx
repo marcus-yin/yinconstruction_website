@@ -55,7 +55,7 @@ export default function ServiceAreasPage() {
 
         <p className="mt-12 max-w-3xl text-steel-700">
           Don&apos;t see your town? These pages cover our core areas, but we
-          regularly work throughout Central New York.{" "}
+          regularly work throughout Central New York (CNY).{" "}
           <Link href="/contact/" className="font-semibold text-navy-700 underline">
             Ask us about your project
           </Link>{" "}

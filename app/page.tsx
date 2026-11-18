@@ -283,7 +283,7 @@ export default function HomePage() {
                 ", within roughly X miles of Syracuse." */}
             <p className="mt-4 text-lg leading-relaxed text-steel-700">
               Based in the Syracuse area, we take on projects across Central New
-              York.
+              York (CNY).
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {serviceAreas.map((area) => (

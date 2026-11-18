@@ -14,7 +14,7 @@
 
 export const company = {
   name: "YIN Construction",
-  tagline: "Drywall & interior construction for Central New York",
+  tagline: "Drywall & interior construction for Central New York (CNY)",
   /** Production domain - drives canonical URLs, sitemap.xml, and Open Graph. */
   url: "https://yinconstruction.com",
   phone: {
@@ -51,7 +51,7 @@ export const company = {
    */
   geo: { lat: null as number | null, lng: null as number | null },
   serviceAreaStatement:
-    "Serving Syracuse and communities throughout Central New York",
+    "Serving Syracuse and communities throughout Central New York (CNY)",
 } as const;
 
 /**
@@ -87,7 +87,7 @@ export const hero = {
   kicker: "Built right. Built to last.",
   headline: "Professional Drywall & Interior Construction in Central New York",
   subcopy:
-    "Drywall installation, taping and finishing, repairs, and interior construction services for residential and commercial projects throughout the Syracuse region.",
+    "Drywall installation, taping and finishing, repairs, and interior construction services for residential and commercial projects throughout Syracuse and Central New York (CNY).",
   primaryCta: { label: "Request an Estimate", href: "/contact/?type=homeowner" },
   secondaryCta: {
     label: "Request a Subcontractor Bid",
@@ -1210,5 +1210,5 @@ export const seo = {
   defaultTitle: "Drywall & Interior Contractor in Syracuse, NY | YIN Construction",
   /** Home page + default meta description (<=155 chars). */
   defaultDescription:
-    "Drywall installation, taping & finishing, repairs, commercial interiors, and basement finishing across Syracuse and Central New York. Free estimates.",
+    "Drywall installation, taping & finishing, repairs, commercial interiors, and basement finishing across Syracuse and Central New York (CNY). Free estimates.",
 };
